@@ -1,0 +1,19 @@
+{
+  "name": "reportmaker-main",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently -n BACK,FRONT -c green,cyan \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "cross-env PORT=4000 npm run dev --prefix backend",
+    "dev:frontend": "wait-on tcp:4000 && cross-env VITE_PORT=5173 npm run dev --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "cross-env": "^7.0.3",
+    "wait-on": "^7.2.0"
+  }
+}
+

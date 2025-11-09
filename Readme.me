@@ -1,0 +1,99 @@
+## Executive Summary
+
+Purpose: consolidate the meeting requests and provide a plan to deliver an internal Investor Overview dashboard for IR prep—PDF export immediately, interactivity/sharing later.
+
+### Meeting Requests
+
+**Data & Calculations**
+- Connect to Vantage for investments, cash flows, balances/valuations.
+- Compute/aggregate NAV; show Missing/Stale NAV indicators.
+- Surface Net Cash + Equity (noting mock data until final mapping lands).
+- Sector-level returns deferred until data quality confirmed.
+- Display investment rating if supplied; otherwise document placeholder.
+
+**Time Ranges & Filters**
+- Quick picks: 3/5/10/12 years, 2025 (current year), Custom.
+- Option to view full history since investor onboarded.
+
+**Breakdowns & Visuals**
+- Sector & country breakdowns (pie + table).
+- Portfolio allocation pie (phase 1 static, later interactive slices).
+- Annual blocks per year: inflows (contributions) vs outflows (distributions).
+
+**UX & Sharing**
+- Investor name search loads a one-pager overview.
+- PDF export for printing/internal send.
+- MVP = internal use only; secure sharing (tokenized links/SSO) later.
+- Explicit security caveats until sharing hardened.
+
+### Phased Delivery Plan
+
+**MVP (2 weeks)**  
+- Investor picker, overview card (Equity, Net Cash, NAV status).  
+- Sector/country pies & tables.  
+- Annual contributions vs distributions blocks.  
+- Date filters 3/5/10/12/All/Custom.  
+- PDF export (title, timestamp, investor info, disclaimer).
+
+**V1 (Weeks 3–4)**  
+- DQ checks, anomaly highlighting, investment rating placeholder.  
+- Layered caching (Contacts/Account mappings 15m, Financials 5m, Cash Flows 1m).  
+- Basic diagnostics/log screen.
+
+**V1.5 (Weeks 5–6)**  
+- Interactive pie drill-downs; richer timeline (quarter/month) if data allows.  
+- Security groundwork: SSO/tokenized links, rate limiting, audit trail (still internal only).
+
+### Screens & Components
+- Investor Search (typeahead, recents).  
+- Investor Overview (KPIs, date controls).  
+- Sector Breakdown (pie + table).  
+- Country Breakdown (pie + table).  
+- Annual Timeline (yearly In vs Out).  
+- Exceptions/Alerts (Missing/Stale NAV, unslotted sector/country, negative/dup sums).  
+- PDF Export (logo, report title, range, timestamp, disclaimer).
+
+### Calculation Definitions
+- Net Cash = Σ(Contributions) − Σ(Distributions).
+- Equity = summed NAV (show “Missing NAV” when data absent).
+- NAV = Vantage valuations only (no bespoke modeling in MVP).
+- Annual In/Out use consistent value-date rules.
+- Sector returns remain out of scope until data allows standardized IRR/TVPI.
+
+### Data Integration (Vantage)
+- Pulls: Contacts, Holdings/Commitments, Cash Flows, Valuations, Geography, Sectors/Tags.
+- Mapping: Investor → Holdings/Commitments → Cash Flows → Valuations.
+- DQ: reconcile cash flows vs annual aggregates; flag missing sector/country; flag stale NAV beyond threshold.
+
+### Security & Permissions
+- MVP: internal-only access, audit logs for fetch/export.
+- Next: secure share links (tokenized + expiry), SSO, rate limiting.
+
+### Export & Print
+- One/two-page PDF with pies, timeline, key tables.
+- Disclaimer: “For internal IR prep; NAV values may be partial/non-final.”
+- Timestamp + investor ID on every export.
+
+### Timeline & Milestones (UTC+2)
+- Sprint 0 (Nov 5–7): connectivity, schema definitions, skeleton UI/PDF.
+- Sprint 1 (Nov 9–14): data aggregations, pies, annual timeline, PDF sample.
+- Sprint 2 (Nov 16–21): missing/stale NAV indicators, anomaly log, caching, KPIs.
+- Sprint 3 (Nov 23–28): pie drill-downs, diagnostics/logs, PDF parity.
+
+### Acceptance Criteria
+- Search & load <2s with cache; show name/ID/#investments.
+- Sector/country pies total 100%; later slices drill down.
+- Annual timeline sums match cash-flow aggregates.
+- KPIs show Equity/Net Cash for range; NAV status visible.
+- PDF mirrors UI, includes disclaimers/timestamps.
+- Security: external access blocked; audit logging enabled.
+
+### Risks & Dependencies
+- Data gaps (sector/country) → remediation reports.
+- Missing NAV → highlight; avoid performance claims without valuations.
+- Performance → manage via caching/pagination.
+- Security → keep internal-only until sharing hardened.
+
+### Appendix
+- **Vantage Fields**: investors (id/name/status), holdings (sector/country/commitment/cost/NAV), cash flows (date/type/amount), lookups (sectors/countries/tags), derived metrics (Net Cash, Equity, NAV status).
+- **PDF Disclaimer**: “This document is for internal use to prepare investor meetings. NAV data may be partial/non-final. This is not investment advice.”

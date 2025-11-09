@@ -1,0 +1,58 @@
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .app-shell {
+    max-width: 100%;
+    padding: 0 24px;
+  }
+
+  .page-header,
+  .filters-grid,
+  .toast {
+    display: none !important;
+  }
+
+  .report-body {
+    border: none;
+    box-shadow: none;
+    background: #fff;
+    padding: 0 0 32px;
+  }
+
+  .sticky-summary {
+    position: static;
+    background: transparent;
+    border-bottom: 1px solid #ccc;
+    color: #000;
+  }
+
+  .panel,
+  .summary-cards,
+  .charts-grid,
+  .virtual-table,
+  .table-wrapper {
+    break-inside: avoid;
+    box-shadow: none;
+    background: transparent;
+    color: #000;
+  }
+
+  .panel.table-panel,
+  .timeline-panel,
+  .breakdown-panel {
+    border: none;
+  }
+
+  .btn {
+    display: none !important;
+  }
+
+  .footer-note {
+    border-top: 1px solid #ccc;
+    padding-top: 12px;
+  }
+}
+
