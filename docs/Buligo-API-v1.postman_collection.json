@@ -1,0 +1,471 @@
+{
+  "info": {
+    "name": "Buligo API V1",
+    "description": "Complete API collection for testing Buligo Capital Fee Management System V1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://qwgicrdcoqdketqhxbys.supabase.co/functions/v1/api-v1",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "YOUR_JWT_TOKEN_HERE",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Parties",
+      "item": [
+        {
+          "name": "List Parties",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/parties?limit=50&offset=0",
+              "host": ["{{base_url}}"],
+              "path": ["parties"],
+              "query": [
+                {"key": "limit", "value": "50"},
+                {"key": "offset", "value": "0"},
+                {"key": "active", "value": "true", "disabled": true},
+                {"key": "q", "value": "test", "disabled": true}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Party",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Distributor LLC\",\n  \"email\": \"contact@testdist.com\",\n  \"country\": \"United States\",\n  \"tax_id\": \"12-3456789\",\n  \"active\": true,\n  \"notes\": \"Created via Postman\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/parties",
+              "host": ["{{base_url}}"],
+              "path": ["parties"]
+            }
+          }
+        },
+        {
+          "name": "Get Party by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/parties/1",
+              "host": ["{{base_url}}"],
+              "path": ["parties", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Party",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tax_id\": \"98-7654321\",\n  \"active\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/parties/1",
+              "host": ["{{base_url}}"],
+              "path": ["parties", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Funds",
+      "item": [
+        {
+          "name": "List Funds",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/funds",
+              "host": ["{{base_url}}"],
+              "path": ["funds"]
+            }
+          }
+        },
+        {
+          "name": "Create Fund",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Fund VI\",\n  \"vintage_year\": 2025,\n  \"currency\": \"USD\",\n  \"status\": \"active\",\n  \"notes\": \"Primary fund for 2025\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/funds",
+              "host": ["{{base_url}}"],
+              "path": ["funds"]
+            }
+          }
+        },
+        {
+          "name": "Get Fund by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/funds/1",
+              "host": ["{{base_url}}"],
+              "path": ["funds", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Deals",
+      "item": [
+        {
+          "name": "List Deals",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/deals",
+              "host": ["{{base_url}}"],
+              "path": ["deals"]
+            }
+          }
+        },
+        {
+          "name": "Create Deal",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fund_id\": 1,\n  \"name\": \"Project Alpha\",\n  \"address\": \"123 Main St, Los Angeles, CA\",\n  \"status\": \"active\",\n  \"close_date\": \"2025-12-31\",\n  \"sector\": \"Multifamily\",\n  \"year_built\": 2020,\n  \"units\": 150,\n  \"sqft\": 200000,\n  \"income_producing\": true,\n  \"exclude_gp_from_commission\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/deals",
+              "host": ["{{base_url}}"],
+              "path": ["deals"]
+            }
+          }
+        },
+        {
+          "name": "Get Deal by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/deals/1",
+              "host": ["{{base_url}}"],
+              "path": ["deals", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Deal (Status & GP Exclusion)",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"closed\",\n  \"exclude_gp_from_commission\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/deals/1",
+              "host": ["{{base_url}}"],
+              "path": ["deals", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fund Tracks",
+      "item": [
+        {
+          "name": "List Tracks for Fund",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/fund-tracks?fund_id=1",
+              "host": ["{{base_url}}"],
+              "path": ["fund-tracks"],
+              "query": [{"key": "fund_id", "value": "1"}]
+            }
+          }
+        },
+        {
+          "name": "Get Specific Track",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/fund-tracks/1/B",
+              "host": ["{{base_url}}"],
+              "path": ["fund-tracks", "1", "B"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Agreements",
+      "item": [
+        {
+          "name": "List Agreements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/agreements?limit=50&offset=0",
+              "host": ["{{base_url}}"],
+              "path": ["agreements"],
+              "query": [
+                {"key": "limit", "value": "50"},
+                {"key": "offset", "value": "0"},
+                {"key": "party_id", "value": "1", "disabled": true},
+                {"key": "fund_id", "value": "1", "disabled": true},
+                {"key": "status", "value": "APPROVED", "disabled": true}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Agreement (FUND + Track B)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"party_id\": 1,\n  \"scope\": \"FUND\",\n  \"fund_id\": 1,\n  \"pricing_mode\": \"TRACK\",\n  \"selected_track\": \"B\",\n  \"effective_from\": \"2025-07-01\",\n  \"vat_included\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/agreements",
+              "host": ["{{base_url}}"],
+              "path": ["agreements"]
+            }
+          }
+        },
+        {
+          "name": "Create Agreement (DEAL + Custom)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"party_id\": 1,\n  \"scope\": \"DEAL\",\n  \"deal_id\": 1,\n  \"pricing_mode\": \"CUSTOM\",\n  \"effective_from\": \"2025-07-01\",\n  \"vat_included\": false,\n  \"custom_terms\": {\n    \"upfront_bps\": 200,\n    \"deferred_bps\": 100\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/agreements",
+              "host": ["{{base_url}}"],
+              "path": ["agreements"]
+            }
+          }
+        },
+        {
+          "name": "Get Agreement by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/agreements/1",
+              "host": ["{{base_url}}"],
+              "path": ["agreements", "1"]
+            }
+          }
+        },
+        {
+          "name": "Submit Agreement for Approval",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/agreements/1/submit",
+              "host": ["{{base_url}}"],
+              "path": ["agreements", "1", "submit"]
+            }
+          }
+        },
+        {
+          "name": "Approve Agreement (RBAC: manager/admin)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/agreements/1/approve",
+              "host": ["{{base_url}}"],
+              "path": ["agreements", "1", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Reject Agreement",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comment\": \"Please revise pricing terms\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/agreements/1/reject",
+              "host": ["{{base_url}}"],
+              "path": ["agreements", "1", "reject"]
+            }
+          }
+        },
+        {
+          "name": "Amend Agreement (Create v2)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/agreements/1/amend",
+              "host": ["{{base_url}}"],
+              "path": ["agreements", "1", "amend"]
+            }
+          }
+        },
+        {
+          "name": "TEST: FUND + CUSTOM (Should Fail)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"party_id\": 1,\n  \"scope\": \"FUND\",\n  \"fund_id\": 1,\n  \"pricing_mode\": \"CUSTOM\",\n  \"effective_from\": \"2025-07-01\",\n  \"custom_terms\": {\n    \"upfront_bps\": 200,\n    \"deferred_bps\": 100\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/agreements",
+              "host": ["{{base_url}}"],
+              "path": ["agreements"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Runs",
+      "item": [
+        {
+          "name": "List Runs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/runs?fund_id=1",
+              "host": ["{{base_url}}"],
+              "path": ["runs"],
+              "query": [
+                {"key": "fund_id", "value": "1"},
+                {"key": "status", "value": "APPROVED", "disabled": true}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Run",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fund_id\": 1,\n  \"period_from\": \"2025-01-01\",\n  \"period_to\": \"2025-12-31\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/runs",
+              "host": ["{{base_url}}"],
+              "path": ["runs"]
+            }
+          }
+        },
+        {
+          "name": "Get Run by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/runs/1",
+              "host": ["{{base_url}}"],
+              "path": ["runs", "1"]
+            }
+          }
+        },
+        {
+          "name": "Submit Run for Approval",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/runs/1/submit",
+              "host": ["{{base_url}}"],
+              "path": ["runs", "1", "submit"]
+            }
+          }
+        },
+        {
+          "name": "Approve Run (RBAC: manager/admin)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/runs/1/approve",
+              "host": ["{{base_url}}"],
+              "path": ["runs", "1", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Reject Run",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comment\": \"Please verify contribution amounts\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/runs/1/reject",
+              "host": ["{{base_url}}"],
+              "path": ["runs", "1", "reject"]
+            }
+          }
+        },
+        {
+          "name": "Generate Calculation (Only when APPROVED)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/runs/1/generate",
+              "host": ["{{base_url}}"],
+              "path": ["runs", "1", "generate"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

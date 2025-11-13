@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Show JWT Token</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 40px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #4ade80;
+        }
+        .token-box {
+            background: #2a2a2a;
+            border: 2px solid #4ade80;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            word-wrap: break-word;
+        }
+        button {
+            background: #4ade80;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #22c55e;
+        }
+        .success {
+            color: #4ade80;
+            margin-top: 10px;
+        }
+        .error {
+            color: #ef4444;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 Your JWT Token</h1>
+
+        <div id="tokenDisplay"></div>
+
+        <button onclick="copyToken()">📋 Copy Token to Clipboard</button>
+        <div id="message"></div>
+
+        <hr style="margin: 40px 0; border-color: #4a4a4a;">
+
+        <h2>PowerShell Command:</h2>
+        <div class="token-box">
+            <code>$env:ADMIN_JWT = "YOUR_TOKEN_HERE"</code>
+        </div>
+    </div>
+
+    <script>
+        function getToken() {
+            try {
+                const storageKey = 'sb-qwgicrdcoqdketqhxbys-auth-token';
+                const authData = localStorage.getItem(storageKey);
+
+                if (!authData) {
+                    return { error: 'No auth token found. Please sign in first.' };
+                }
+
+                const parsed = JSON.parse(authData);
+                const token = parsed.access_token;
+
+                if (!token) {
+                    return { error: 'Token found but no access_token field.' };
+                }
+
+                return { token };
+            } catch (e) {
+                return { error: `Error reading token: ${e.message}` };
+            }
+        }
+
+        function displayToken() {
+            const result = getToken();
+            const display = document.getElementById('tokenDisplay');
+
+            if (result.error) {
+                display.innerHTML = `<div class="error">❌ ${result.error}</div>`;
+            } else {
+                display.innerHTML = `
+                    <div class="token-box" id="tokenText">
+                        ${result.token}
+                    </div>
+                `;
+            }
+        }
+
+        function copyToken() {
+            const result = getToken();
+            const message = document.getElementById('message');
+
+            if (result.error) {
+                message.innerHTML = `<div class="error">❌ ${result.error}</div>`;
+                return;
+            }
+
+            navigator.clipboard.writeText(result.token).then(() => {
+                message.innerHTML = '<div class="success">✅ Token copied to clipboard!</div>';
+                setTimeout(() => {
+                    message.innerHTML = '';
+                }, 3000);
+            }).catch(err => {
+                message.innerHTML = `<div class="error">❌ Failed to copy: ${err.message}</div>`;
+            });
+        }
+
+        // Display token on page load
+        displayToken();
+    </script>
+</body>
+</html>

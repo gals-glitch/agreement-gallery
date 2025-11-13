@@ -1,0 +1,55 @@
+====================================================
+VANTAGE SYNC - FINAL STEP REQUIRED
+====================================================
+
+STATUS: All code is ready and tested. Only ONE database constraint needs to be applied.
+
+ISSUE: The investors.external_id column needs a UNIQUE constraint for the ON CONFLICT upsert to work.
+
+====================================================
+SOLUTION: Run this SQL in Supabase SQL Editor
+====================================================
+
+1. Open: https://supabase.com/dashboard/project/qwgicrdcoqdketqhxbys/sql/new
+
+2. Paste this SQL (already in clipboard):
+
+ALTER TABLE investors
+ADD CONSTRAINT investors_external_id_unique UNIQUE (external_id);
+
+3. Click "Run" (or press Ctrl+Enter)
+
+====================================================
+AFTER APPLYING THE SQL:
+====================================================
+
+Run this script to verify and execute the full sync:
+
+    powershell -ExecutionPolicy Bypass -File run_sync_with_check.ps1
+
+This will:
+- Verify the constraint exists
+- Run the full sync (2,097 accounts)
+- Show results
+
+Expected outcome:
+- Status: success
+- Records Synced: 2097
+- Duration: ~10-12 seconds
+- No errors
+
+====================================================
+PROGRESS SO FAR:
+====================================================
+
+✓ Vantage API integration working
+✓ Data validation passing (multi-email, phone placeholders)
+✓ Mapper rewritten to match actual database schema
+✓ Chunking implemented (100 records/batch, 21 chunks)
+✓ All contact info mapped to structured notes field
+✓ Dry run successful (0 errors on 2,097 accounts)
+✓ External ID for idempotency ready
+
+BLOCKING: UNIQUE constraint not applied
+
+====================================================

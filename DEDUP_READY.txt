@@ -1,0 +1,185 @@
+====================================================
+INVESTOR DEDUPLICATION - READY TO EXECUTE
+====================================================
+
+STATUS: All tools created and ready to use
+
+SITUATION:
+- Total investors: 2,138
+- Vantage (from sync): 2,097
+- DISTRIBUTOR (original): 41
+- Duplicate name pairs: 22
+
+GOAL:
+Merge the 22 duplicate DISTRIBUTOR records into their Vantage
+counterparts, resulting in 2,116 active investors (2097 + 19).
+
+====================================================
+QUICK START
+====================================================
+
+Run this PowerShell script for guided step-by-step execution:
+
+    powershell -ExecutionPolicy Bypass -File run_dedup_steps.ps1
+
+The script will:
+✓ Copy each SQL file to clipboard
+✓ Guide you through each step
+✓ Confirm before destructive operations
+✓ Validate results at the end
+
+====================================================
+MANUAL EXECUTION (5 SQL FILES)
+====================================================
+
+SQL Editor: https://supabase.com/dashboard/project/qwgicrdcoqdketqhxbys/sql/new
+
+1. dedup_step0_exact_count.sql
+   → Review current counts (read-only)
+
+2. dedup_step1_schema_helpers.sql
+   → Create log table and columns
+
+3. dedup_step2_merge_function.sql
+   → Create merge_investors() function
+
+4. dedup_step3_build_plan.sql
+   → Build merge plan and REVIEW pairs
+   → KEEP TAB OPEN for Step 5!
+
+5. dedup_step4_execute.sql
+   → Execute merges (SAME TAB as Step 4)
+   → ⚠️ DESTRUCTIVE - confirms required
+
+6. dedup_step5_validation.sql
+   → Validate all merges completed successfully
+
+====================================================
+SAFETY FEATURES
+====================================================
+
+✅ No data loss - soft-delete only
+✅ Full audit trail in investor_merge_log
+✅ All FK updates logged per-table
+✅ Reversible (soft-delete with merged_into_id link)
+✅ Dynamic FK detection (finds all references automatically)
+✅ Validation checks for duplicates and broken FKs
+
+====================================================
+WHAT HAPPENS
+====================================================
+
+For each of the 22 DISTRIBUTOR → Vantage pairs:
+
+1. Update ALL FK references:
+   - agreements.investor_id
+   - transactions.investor_id
+   - charges.investor_id
+   - credits_ledger.investor_id
+   - commissions.investor_id
+   - (all FK tables detected automatically)
+
+2. Soft-delete DISTRIBUTOR record:
+   - active = FALSE
+   - merged_into_id = <vantage_id>
+   - notes updated with merge timestamp
+
+3. Fill missing data on Vantage record:
+   - Copy email/phone/address if Vantage missing them
+
+4. Log everything:
+   - Per-table FK update counts
+   - Timestamp and reason
+   - Full audit trail
+
+====================================================
+EXPECTED RESULT
+====================================================
+
+Before:
+- Total: 2,138 investors
+- Active: 2,138 investors
+- DISTRIBUTOR: 41 active
+- Vantage: 2,097
+- Duplicates: 22 pairs
+
+After:
+- Total: 2,138 investors (unchanged)
+- Active: 2,116 investors (22 merged)
+- DISTRIBUTOR active: 19 (was 41)
+- DISTRIBUTOR merged: 22 (inactive)
+- Vantage: 2,097 (unchanged)
+- Duplicates: 0 pairs (active only)
+
+In UI:
+- Investors list shows 2,116 active investors
+- 22 DISTRIBUTOR records hidden (inactive)
+- All relationships preserved and moved to Vantage records
+
+====================================================
+FILES CREATED
+====================================================
+
+SQL Files:
+- dedup_step0_exact_count.sql
+- dedup_step1_schema_helpers.sql
+- dedup_step2_merge_function.sql
+- dedup_step3_build_plan.sql
+- dedup_step4_execute.sql
+- dedup_step5_validation.sql
+
+Helper Scripts:
+- run_dedup_steps.ps1 - Guided execution
+
+Documentation:
+- DEDUP_GUIDE.md - Comprehensive guide
+- DEDUP_READY.txt - This file
+
+====================================================
+TROUBLESHOOTING
+====================================================
+
+Error: "investor_merge_plan does not exist"
+→ Re-run Step 3 (temp table drops when you close the tab)
+
+Error: "duplicate key value violates unique constraint"
+→ Tell me the table/constraint name for conflict handling
+
+Validation fails:
+→ Check dedup_step5_validation.sql results
+→ Review investor_merge_log table
+→ Check investors.notes for merge timestamps
+
+====================================================
+NEXT STEPS AFTER DEDUP
+====================================================
+
+1. Refresh app UI to see updated count
+2. Consider filtering WHERE active IS NOT FALSE
+3. Future Vantage syncs will be clean (no new duplicates)
+4. Monitor merge_log for audit purposes
+
+====================================================
+READY TO RUN
+====================================================
+
+Choose one:
+
+A) Guided (recommended):
+   powershell -ExecutionPolicy Bypass -File run_dedup_steps.ps1
+
+B) Manual:
+   Open SQL Editor and run each dedup_stepN file in order
+
+C) Review first:
+   Read DEDUP_GUIDE.md for full details
+
+====================================================
+Risk Level: LOW
+- Soft-delete only (reversible)
+- Full audit trail
+- No data loss
+- Dynamic FK detection
+
+Estimated Time: < 5 minutes
+====================================================

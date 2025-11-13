@@ -1,0 +1,20 @@
+==================================================
+URGENT: Apply UNIQUE Constraint Before Running Sync
+==================================================
+
+Open Supabase SQL Editor:
+https://supabase.com/dashboard/project/qwgicrdcoqdketqhxbys/sql/new
+
+Paste and run this SQL:
+
+ALTER TABLE investors
+ADD CONSTRAINT investors_external_id_unique UNIQUE (external_id);
+
+==================================================
+
+This constraint is REQUIRED for the Vantage sync to work.
+The ON CONFLICT clause needs this UNIQUE constraint to identify conflicts.
+
+After running the SQL, proceed with: powershell -ExecutionPolicy Bypass -File quick_sync.ps1
+
+==================================================

@@ -1,0 +1,47 @@
+﻿[
+    {
+        "InvestorName":  "Yaniv Radia",
+        "PartyName":  "Kuperman",
+        "AgreementText":  "If deal closed before February 1, 2018 gets 25% commission"
+    },
+    {
+        "InvestorName":  "Gil Serok Revocable Trust",
+        "PartyName":  "Kuperman",
+        "AgreementText":  "Between February 1, 2018 and December 12, 2019 gets 27%"
+    },
+    {
+        "InvestorName":  "Gadi Gerbi",
+        "PartyName":  "Kuperman",
+        "AgreementText":  "Between December 12 and October 31, 2020 gets 30% After October 31, 2020 gets 35%"
+    },
+    {
+        "InvestorName":  "Avraham Weiss",
+        "PartyName":  "Guy Moses",
+        "AgreementText":  "(Only 50% of the above fees)"
+    },
+    {
+        "InvestorName":  "Pladot Paldom Ltd",
+        "PartyName":  "Guy Moses",
+        "AgreementText":  "(Only 50% of the above fees)"
+    },
+    {
+        "InvestorName":  "Noam Zegman",
+        "PartyName":  "Guy Moses",
+        "AgreementText":  "(Only 50% of the above fees)"
+    },
+    {
+        "InvestorName":  "Ariel Efrati",
+        "PartyName":  "Yair Almagor",
+        "AgreementText":  "$1,000USD one time fee"
+    },
+    {
+        "InvestorName":  "David Goone",
+        "PartyName":  "Dror Zetouni ",
+        "AgreementText":  "Aventine, Steamboat (Dead), Skyline all considered 1st deal"
+    },
+    {
+        "InvestorName":  "Matthew Rosenbluth Rosenbluth Trust",
+        "PartyName":  "Brian Horner",
+        "AgreementText":  "1% for the first 3 deals (Perdido)"
+    }
+]

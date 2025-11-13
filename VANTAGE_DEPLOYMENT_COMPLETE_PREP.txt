@@ -1,0 +1,266 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║              VANTAGE SYNC DEPLOYMENT - PREPARATION COMPLETE                ║
+║                                                                            ║
+║                        Date: November 6, 2025                              ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+✅ ALL SCRIPTS AND COMPONENTS PREPARED
+
+────────────────────────────────────────────────────────────────────────────
+
+📁 FILES CREATED (9 new files)
+
+Step-by-Step Scripts:
+  ✓ step1_check_deals_duplicates.sql         (357 bytes)
+  ✓ step1_add_deals_constraint.sql           (389 bytes)
+  ✓ step1_check_and_add_constraint.ps1       (2.7 KB)
+  ✓ step2_run_funds_sync.ps1                 (3.7 KB)
+  ✓ step2_verify_funds.ps1                   (1.6 KB)
+  ✓ step5_setup_daily_cron.sql               (2.7 KB)
+  ✓ step6_hardening_checks.sql               (7.5 KB)
+
+Master Orchestration:
+  ✓ EXECUTE_VANTAGE_DEPLOYMENT.ps1           (13 KB)
+
+Documentation:
+  ✓ VANTAGE_DEPLOYMENT_READY.md              (5.6 KB)
+
+────────────────────────────────────────────────────────────────────────────
+
+🎨 UI COMPONENTS CONFIGURED
+
+Admin Sync Dashboard:
+  ✓ Component:  src/pages/AdminSync.tsx (already existed, confirmed working)
+  ✓ Route:      /admin/sync (added to App.tsx)
+  ✓ Protection: Admin-only + 'vantage_sync' feature flag
+  ✓ Features:   Full/Incremental sync buttons, history table, error display
+
+────────────────────────────────────────────────────────────────────────────
+
+📖 DOCUMENTATION UPDATED
+
+  ✓ VANTAGE_ETL_DEPLOYMENT.md - Comprehensive deployment guide updated
+  ✓ VANTAGE_DEPLOYMENT_READY.md - Quick start guide created
+  ✓ All SQL and PowerShell scripts include inline documentation
+
+────────────────────────────────────────────────────────────────────────────
+
+🔧 THE 7-STEP DEPLOYMENT CHECKLIST
+
+  1. Lock funds upserts (unique deals.external_id)
+     → Check duplicates, add constraint
+     → Files: step1_*.sql, step1_*.ps1
+
+  2. Run the Funds sync (full, then incremental)
+     → Full backfill + incremental sanity check
+     → Files: step2_run_funds_sync.ps1, step2_verify_funds.ps1
+
+  3. Gate behind feature flag (safe rollout)
+     → Create 'vantage_sync' flag (initially disabled)
+     → SQL provided in documentation
+
+  4. Ship Admin Sync Dashboard (copy-paste)
+     → ✅ Already done! Component and route configured
+     → Location: /admin/sync
+
+  5. Schedule daily incremental sync (UTC-aware)
+     → Cron job at 00:00 UTC (≈ 02:00 Asia/Jerusalem)
+     → File: step5_setup_daily_cron.sql (⚠️ EDIT SERVICE KEY FIRST!)
+
+  6. Final hardening checks
+     → Validates all components A-F
+     → File: step6_hardening_checks.sql
+
+  7. Sign-off checklist (today)
+     → Documentation complete
+     → All scripts ready for execution
+
+────────────────────────────────────────────────────────────────────────────
+
+🚀 READY TO EXECUTE
+
+Option A: Automated Execution (Recommended)
+┌────────────────────────────────────────────────────────────────────────┐
+│ powershell -ExecutionPolicy Bypass -File EXECUTE_VANTAGE_DEPLOYMENT.ps1 │
+└────────────────────────────────────────────────────────────────────────┘
+
+This master script will guide you through all 7 steps with:
+  • Interactive prompts for each step
+  • Clipboard automation (copies SQL for easy paste)
+  • Validation checkpoints
+  • Clear success/failure indicators
+
+Option B: Manual Execution
+  1. Run step1_check_and_add_constraint.ps1
+  2. Run step2_run_funds_sync.ps1
+  3. Create feature flag (SQL in docs)
+  4. Verify Admin UI route (already done)
+  5. Run step5_setup_daily_cron.sql in Supabase SQL Editor
+  6. Run step6_hardening_checks.sql in Supabase SQL Editor
+  7. Review documentation
+
+────────────────────────────────────────────────────────────────────────────
+
+⚠️  BEFORE YOU START
+
+Pre-Execution Checklist:
+  □ .env file has SUPABASE_SERVICE_ROLE_KEY and SUPABASE_URL
+  □ Vantage Edge Function deployed and tested
+  □ Database has vantage_sync_state table
+  □ Admin access to Supabase SQL Editor confirmed
+  □ EDIT step5_setup_daily_cron.sql with actual service role key
+  □ Review rollback procedures in VANTAGE_ETL_DEPLOYMENT.md
+
+────────────────────────────────────────────────────────────────────────────
+
+📊 EXPECTED RESULTS
+
+After successful execution:
+
+  ✓ deals.external_id has unique constraint
+  ✓ All funds synced from Vantage (full + incremental verified)
+  ✓ Feature flag 'vantage_sync' created (initially disabled)
+  ✓ Admin UI accessible at /admin/sync for admins
+  ✓ Daily cron job 'vantage-daily-sync' active
+  ✓ All hardening checks (A-F) return PASS
+  ✓ Documentation complete and team briefed
+
+────────────────────────────────────────────────────────────────────────────
+
+🎯 POST-EXECUTION
+
+Once all steps pass:
+
+  1. Enable the feature flag:
+     UPDATE public.feature_flags
+     SET is_active = true
+     WHERE flag_key = 'vantage_sync';
+
+  2. Add nav link to admin menu for /admin/sync
+
+  3. Test the Admin UI:
+     • Navigate to /admin/sync
+     • Click "Sync Now (Incremental)"
+     • Verify sync executes and history updates
+
+  4. Monitor first automated sync at 00:00 UTC tomorrow
+
+────────────────────────────────────────────────────────────────────────────
+
+🔍 VERIFICATION QUERIES
+
+Quick health check after deployment:
+
+  -- Check constraint exists
+  SELECT conname FROM pg_constraint WHERE conname = 'deals_external_id_unique';
+
+  -- Check funds synced
+  SELECT COUNT(*) FROM public.deals WHERE external_id IS NOT NULL;
+
+  -- Check cron job
+  SELECT * FROM cron.job WHERE jobname = 'vantage-daily-sync';
+
+  -- Check feature flag
+  SELECT * FROM public.feature_flags WHERE flag_key = 'vantage_sync';
+
+  -- Check recent syncs
+  SELECT resource, last_sync_status, records_synced, completed_at
+  FROM public.vantage_sync_state
+  ORDER BY completed_at DESC LIMIT 5;
+
+────────────────────────────────────────────────────────────────────────────
+
+📚 REFERENCE DOCUMENTATION
+
+  📘 VANTAGE_ETL_DEPLOYMENT.md     → Complete deployment guide
+  📋 VANTAGE_DEPLOYMENT_READY.md   → Quick start reference
+  📗 VANTAGE_SYNC_COMPLETE.md      → Investors sync documentation
+  📕 DEDUP_GUIDE.md                 → Deduplication procedures
+  📙 VANTAGE_QUICK_REFERENCE.txt   → Daily operations cheat sheet
+
+────────────────────────────────────────────────────────────────────────────
+
+🛠️  TROUBLESHOOTING
+
+  Issue: Sync fails with "429 Too Many Requests"
+  → Increase delay between batches in vantageClient.ts
+
+  Issue: Duplicate external_ids found
+  → Run DEDUP_GUIDE.md procedures
+
+  Issue: Cron job not running
+  → Verify pg_cron extension enabled
+  → Check cron.job table for active=true
+  → Review database logs
+
+  Issue: Admin UI not accessible
+  → Verify user has 'admin' role
+  → Check feature flag is enabled
+  → Confirm route protection in App.tsx
+
+Full troubleshooting: See VANTAGE_ETL_DEPLOYMENT.md § Troubleshooting
+
+────────────────────────────────────────────────────────────────────────────
+
+🔒 ROLLBACK PROCEDURES
+
+If issues arise after deployment:
+
+  Immediate disable:
+    SELECT cron.unschedule('vantage-daily-sync');
+    UPDATE public.feature_flags SET is_active = false WHERE flag_key = 'vantage_sync';
+
+  Full rollback:
+    See VANTAGE_ETL_DEPLOYMENT.md § Rollback Procedures
+
+────────────────────────────────────────────────────────────────────────────
+
+✅ SIGN-OFF STATUS
+
+Component Preparation:
+  ✅ Step 1 scripts created and documented
+  ✅ Step 2 scripts created and documented
+  ✅ Step 3 SQL provided
+  ✅ Step 4 UI component configured
+  ✅ Step 5 cron script created (needs service key edit)
+  ✅ Step 6 hardening checks created
+  ✅ Step 7 documentation updated
+
+Code Changes:
+  ✅ AdminSync.tsx component (already existed, verified)
+  ✅ App.tsx route added with protection
+  ✅ Feature flag guard configured
+
+Documentation:
+  ✅ VANTAGE_ETL_DEPLOYMENT.md updated
+  ✅ VANTAGE_DEPLOYMENT_READY.md created
+  ✅ Master script EXECUTE_VANTAGE_DEPLOYMENT.ps1 created
+  ✅ All SQL and PS1 files documented
+
+────────────────────────────────────────────────────────────────────────────
+
+🚀 STATUS: READY FOR EXECUTION
+
+Next Steps:
+  1. Review VANTAGE_DEPLOYMENT_READY.md
+  2. Complete pre-execution checklist above
+  3. Run: powershell -ExecutionPolicy Bypass -File EXECUTE_VANTAGE_DEPLOYMENT.ps1
+  4. Follow interactive prompts
+  5. Verify all checks pass
+  6. Enable feature flag when ready
+
+────────────────────────────────────────────────────────────────────────────
+
+Questions or Issues?
+  → See VANTAGE_ETL_DEPLOYMENT.md for detailed procedures
+  → Check VANTAGE_DEPLOYMENT_READY.md for quick reference
+  → Review individual step*.sql and step*.ps1 files for specifics
+
+────────────────────────────────────────────────────────────────────────────
+
+                        ✅ PREPARATION COMPLETE ✅
+                     🚀 READY TO DEPLOY WHEN YOU ARE 🚀
+
+────────────────────────────────────────────────────────────────────────────

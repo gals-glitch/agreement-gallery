@@ -1,0 +1,10 @@
+project_id = "qwgicrdcoqdketqhxbys"
+
+[functions.export-commission-data]
+verify_jwt = true
+
+[functions.fee-runs-api]
+verify_jwt = true
+
+[functions.create-calculation-run]
+verify_jwt = true

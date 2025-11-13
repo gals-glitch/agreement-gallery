@@ -1,0 +1,67 @@
+====================================================
+VANTAGE SYNC - ONE MORE STEP REQUIRED
+====================================================
+
+STATUS:
+✓ UNIQUE constraint applied successfully
+✗ Need to add 'vantage' to investor_source_kind enum
+
+ISSUE: The source_kind field uses an enum that doesn't include "vantage"
+
+Current valid values: DISTRIBUTOR
+
+====================================================
+SOLUTION: Run this SQL in Supabase SQL Editor
+====================================================
+
+1. Open: https://supabase.com/dashboard/project/qwgicrdcoqdketqhxbys/sql/new
+
+2. Paste this SQL (already in clipboard):
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_enum
+        WHERE enumlabel = 'vantage'
+        AND enumtypid = 'investor_source_kind'::regtype
+    ) THEN
+        ALTER TYPE investor_source_kind ADD VALUE 'vantage';
+        RAISE NOTICE 'Added vantage to investor_source_kind enum';
+    ELSE
+        RAISE NOTICE 'vantage already exists in investor_source_kind enum';
+    END IF;
+END $$;
+
+SELECT enumlabel
+FROM pg_enum
+WHERE enumtypid = 'investor_source_kind'::regtype
+ORDER BY enumsortorder;
+
+3. Click "Run" (or press Ctrl+Enter)
+
+====================================================
+AFTER APPLYING THE SQL:
+====================================================
+
+Run the sync again:
+
+    powershell -ExecutionPolicy Bypass -File quick_sync.ps1
+
+Expected outcome:
+- Status: success
+- Records Synced: 2097
+- Duration: ~10-12 seconds
+- No errors
+
+====================================================
+PROGRESS:
+====================================================
+
+✓ Vantage API integration working
+✓ Data validation passing
+✓ Mapper matching database schema
+✓ Chunking implemented
+✓ UNIQUE constraint applied
+✗ Enum value 'vantage' needs to be added
+
+====================================================

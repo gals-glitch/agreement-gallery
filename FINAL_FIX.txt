@@ -1,0 +1,51 @@
+====================================================
+VANTAGE SYNC - FINAL FIX
+====================================================
+PROGRESS:
+✓ UNIQUE constraint on external_id applied
+✓ 'vantage' added to investor_source_kind enum
+✓ 600 records successfully created!
+✗ Final blocker: UNIQUE constraint on name column
+
+ISSUE:
+The investors table has a UNIQUE constraint on the 'name' column, but the Vantage
+data contains duplicate names (e.g., multiple "John Smith" accounts).
+
+This is expected behavior - different people can have the same name. The
+external_id is the true unique identifier.
+
+====================================================
+SOLUTION: Run this SQL in Supabase SQL Editor
+====================================================
+
+Open: https://supabase.com/dashboard/project/qwgicrdcoqdketqhxbys/sql/new
+
+The SQL is in your clipboard. Paste and run:
+
+ALTER TABLE investors DROP CONSTRAINT IF EXISTS investors_name_key;
+
+====================================================
+AFTER RUNNING THE SQL
+====================================================
+
+Run the sync again:
+
+    powershell -ExecutionPolicy Bypass -File quick_sync.ps1
+
+This should complete the full sync of all 2,097 accounts.
+
+====================================================
+FILES CREATED
+====================================================
+- check_and_fix_name_constraint.sql - The SQL to run (in clipboard)
+- supabase/migrations/20251105200002_drop_investors_name_unique.sql - Migration file
+- FINAL_FIX.txt - This file
+
+====================================================
+SUMMARY OF ALL FIXES APPLIED TODAY
+====================================================
+1. Added UNIQUE constraint to investors.external_id
+2. Added 'vantage' to investor_source_kind enum
+3. Dropped UNIQUE constraint from investors.name (about to run)
+
+After fix #3, the sync should complete successfully!

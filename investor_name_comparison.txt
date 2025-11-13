@@ -1,0 +1,291 @@
+﻿================================================================================
+INVESTOR NAME COMPARISON
+================================================================================
+
+SUMMARY:
+  Mapping CSV investors: 263
+  Imported DB investors: 263
+  In BOTH sources: 261
+  Only in Mapping CSV: 2
+  Only in Imported DB: 2
+
+================================================================================
+INVESTORS IN BOTH SOURCES (261):
+================================================================================
+  - 2224935 Ontario Inc.
+  - Abraham Amos
+  - Abraham Stern
+  - Adam Gotskind
+  - Aharon Rasouli
+  - Ahuva Cohen
+  - Alin Ajami Atzmon
+  - Alon Ascher
+  - Alon Even Chen (not Alon Even-Chen)
+  - Amir Amar - amira@ayr.co.il
+  - Amir Azia
+  - Amir Novik - IRA
+  - Amit Avraham
+  - Andrew & Ilana Album
+  - Any IRAs
+  - Ari Aharon Hillel - Check with Erez
+  - Ari Milstein
+  - Ariel Efrati
+  - Ariel Spivak
+  - Arnon Ron
+  - Asaf Vos
+  - Assaf Feldman
+  - Avi Shaked
+  - Aviva Doron
+  - Avraham Weiss
+  - Ayal Brener
+  - Barak & Yael Perlman
+  - Barak Matalon
+  - Barry Kirschenbaum
+  - BD Partnership
+  - Benny Hershkowitz
+  - Benny Silverman
+  - Boaz Israeli- Extra Events Ltd
+  - Boaz Paz
+  - Boaz Shiponi
+  - Brenden Selway
+  - BS Partners
+  - C. Marc Halbfinger
+  - Chaim Zach (HMCA SA)
+  - Chana Rav Acha
+  - Charles Serlin
+  - Class Seven LP
+  - Class V LP
+  - Cohavit Almagor
+  - Dan Krausz
+  - Dan Pastenernak
+  - Dan Zur-Lior Wolf Landscape Architects Ltd
+  - Dana Ben-Eli
+  - Daphna Avraham
+  - David Goone
+  - David Michaeli
+  - David Reichman - commission for himself only on Beaufort
+  - David Schreiber
+  - David Waiman (and anyone he brings with him)
+  - Demri Contractors and Engineers (1990) Ltd
+  - DGG Michal LLC
+  - Dgigim Holdings / Uriel Fischer
+  - DGTA Ltd
+  - Diane Kirschenbaum
+  - Doron Peretz
+  - Doron Tishman (IRAs)
+  - Dov David & Dorit Gerecht Albukrek
+  - Dov Gal
+  - Dr Guy Morag
+  - Dr. George Kreisberg
+  - Dror Nahumi
+  - E.M. Wahrhaft Ltd
+  - Edna Pais
+  - Ehud Even-Ezra
+  - Ehud Hameiri - Ash-Hag Consultants Ltd
+  - Ehud Svirsky
+  - Eilon Sharon
+  - Einat & Erez Barzilai, Barzilai Holdings Ohio LLC
+  - Einav Itamar
+  - Eitan Zweig
+  - Eliezer Abramov
+  - Emanuel & Netanel Parter
+  - Eran & Nitsa Tal
+  - Eran Farajun
+  - Eran Inbar
+  - Eran Yaniv
+  - Eyal & Ruhama Ben Eliezer
+  - Eyal Brayer (EMB Brayer)
+  - Eyal Cohen (not Eyal Itzhak Cohen)
+  - Eyal Pais
+  - Fabian Tenenbaum
+  - Frank Cortese
+  - Fred Margulies
+  - Fresh Properties and Investments
+  - Gadi Gerbi
+  - Galila Tabachnikov Oren
+  - Garage Yossi Cohen Bodywork and Paint Ltd.
+  - Gene Dattel
+  - George Alex Popescu
+  - Gil Serok Revocable Trust
+  - Gil Shalit
+  - Gilad Kapelushnick
+  - Guy Assif
+  - Guy Avtalion
+  - H & S Jacobson Investments LLC
+  - Haggit Levy
+  - Haim Helman
+  - Haim Hoffman
+  - Hila Rom and Uri Rom
+  - Hoaloha Holdings Limited
+  - Horner LLC
+  - Howard Loboda
+  - I.M.R.M. Investments Ltd
+  - Idan Grossman - Mangro Pty Ltd as Trustee for Mind Plus Trust
+  - Idan Kornfeld
+  - Ido Shemer
+  - Iftach Shlomi
+  - Ilan Patashnik
+  - Irit and Avraham Stern
+  - Irit Stern
+  - Ishay Yaari (Kerri Sollutions LLC)
+  - Ismargard
+  - Jack Faintuch
+  - Jacob Horesh
+  - Jared Holzman
+  - Jeff Lai
+  - Jeff Theobald
+  - John Pomfret
+  - Jolo Contour Ltd
+  - Jonathan & Tova Mann
+  - Julien Barbier
+  - Karabel International Investments Ltd
+  - Keith Butler
+  - Kobi Rosenwasser
+  - Kobi Shwartz
+  - Kuperman Entity
+  - Lea Golan Bengis
+  - Leora Lazar
+  - Liad and Melissa Orr
+  - Licia Hahn
+  - Limor Sagiv
+  - Ling and Wang Song
+  - Lior Cohen
+  - Lior Wolf
+  - LLS Holdings LLC - Shlomo Wertheim
+  - Louis Blumberg [The AFB Fund LLC]
+  - Maragret Frank
+  - Matthew Rosenbluth Rosenbluth Trust
+  - Maya Landau
+  - Michael Mann
+  - Michael Shay
+  - Michael Winter
+  - Mickey Amir Hanegbee Kaplinsky
+  - Miri Kerbs (A-T Management)
+  - Miri Rozenfeld
+  - Mordechai Peled
+  - Moshe Dovev
+  - Moshe Friedman
+  - MTRA Ltd
+  - Nahum Kaplan
+  - Nahumi Family Trust
+  - Naomi Rudich
+  - Nathan Ron Lawyers
+  - Nicky Stup & Wife
+  - Nili Karabel
+  - Nili Karabel IRA
+  - Nir Tzur
+  - Nissim Bar Siman Tov
+  - Noa Juhn Parag
+  - Noam Zegman
+  - Nomi A. Holdings Ltd
+  - Nomi Amiel
+  - Nurit Preis
+  - Octavian Patrascu (Netcore Investments Limited)
+  - Ofer and Penina Alt
+  - Ofer Ben-Aharon
+  - Ofer Levy
+  - Ofir Rozenfeld
+  - Ogenruth Ltd
+  - Orchid Real Estate LLC
+  - Oren Family Trust
+  - Oren Hadar - only for Christina Mill. No future deals.
+  - Oren Shefler
+  - Ori Peled
+  - Ori Tuval
+  - Orit Nir
+  - Orna Tamir
+  - Orna Tuval
+  - Paul Friedman
+  - Peter Bermont
+  - Peter Gyenes
+  - Phinhas Dickstein
+  - Pinhas Koren
+  - Pladot Paldom Ltd
+  - Praveen Venkata Dukkipati
+  - RAC Advisors LLC
+  - Rachel Szytglich Even Chen
+  - Rafael Ashkenazi
+  - Rami Lazar
+  - Rami Pais
+  - Ran Baror
+  - Raya Yuval
+  - Rinat Galili
+  - Robert Marconi
+  - Robin Sand
+  - Roliya Investments LLC
+  - Roni Atoun (Green Orka, AC Applications)
+  - Ronny Weiser
+  - Rony Lev-Dor
+  - Roy Gold
+  - Sagi Matas
+  - Schmuel Grizim
+  - Scott Tobin
+  - Segal M.I Investments Ltd
+  - Shachar Tzarfati
+  - Shalom Josef Hochman
+  - Shalom Madar
+  - Sharon Kotlicky-Pery
+  - Shay Mizrachi
+  - Shay Onn
+  - Shlomit Rosenfeld
+  - Shlomo Avidar
+  - Shmuel Carmon
+  - Shmuel Parag
+  - Shmuel Yaakobi
+  - Shulamit Ariel / Zeev Ariel
+  - Shulamit Shimon
+  - Sima Ben Chitrit
+  - Simon Stolero
+  - Sophie Landau
+  - Stan Weissbrot
+  - Stephen Tanzer
+  - Steve Ball
+  - Steve Feiger
+  - Tal Barel
+  - Tal Feigel
+  - Techno Magnetic Media & Computer Supplies Inc
+  - Tehila Ben Moshe
+  - The Service (Sheltered Housing)
+  - Tim Ferguson
+  - Todd Stern
+  - Tomer Ben David
+  - Tomer Bogin (Not Tamir Bogin)
+  - Tzachi Ben Itzhak
+  - Uri Mishol
+  - Uri Tal
+  - Wiser Funds
+  - Yair Koren
+  - Yam Yosef Rubinstein
+  - Yaniv Radia
+  - Yaron Itay
+  - Yee Jiun Song
+  - Yehezkel Gabai
+  - Yigal Ben David
+  - Yitzhak Meron
+  - Yoram Avi-Guy
+  - Yoram Baumann
+  - Yoram Mizrachi
+  - Yosef Cohen
+  - Yury Sofman
+  - Yuval Naftali
+  - Yuval Shacham
+  - Zecharia Oren
+  - Zeev Velner
+  - Zeev Yahalom
+  - Ziv Gal - zivgal@mgscontracting.com
+
+================================================================================
+ONLY IN MAPPING CSV (2):
+================================================================================
+(These have agreement terms but are NOT in the database)
+
+  - Eric Sirkin � The Eric R. Sirkin 2009 trust
+  - Jeff Herbst, The Herbst�Family Trust
+
+================================================================================
+ONLY IN IMPORTED DB (2):
+================================================================================
+(These are in database but have NO agreement terms)
+
+  - Eric Sirkin – The Eric R. Sirkin 2009 trust
+  - Jeff Herbst, The Herbst Family Trust

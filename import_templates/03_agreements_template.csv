@@ -1,0 +1,4 @@
+party_name,scope_type,fund_id,deal_id,rate_bps,vat_mode,vat_rate,effective_from,effective_to,status
+"Example Distributor Ltd","DEAL",,1,100,"on_top",0.20,"2020-01-01",,"APPROVED"
+"Partner Capital","FUND",1,,150,"on_top",0.20,"2024-01-01","2024-12-31","APPROVED"
+"Global Partners","DEAL",,2,125,"on_top",0.17,"2023-06-01",,"APPROVED"

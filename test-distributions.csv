@@ -1,0 +1,5 @@
+investor_name,distribution_amount,distribution_date,deal_code
+John Smith,50000,2024-10-15,
+Jane Doe,75000,2024-10-15,DEAL-ALPHA
+Acme Corp,100000,2024-10-15,
+Test Investor,25000,2024-10-15,DEAL-BETA

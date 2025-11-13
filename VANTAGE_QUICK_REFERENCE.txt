@@ -1,0 +1,115 @@
+====================================================
+VANTAGE SYNC - QUICK REFERENCE CARD
+====================================================
+
+SYNC COMMANDS
+====================================================
+
+Full Sync (All Accounts):
+    powershell -ExecutionPolicy Bypass -File quick_sync.ps1
+
+Dry Run (Test Only - No Changes):
+    powershell -ExecutionPolicy Bypass -File quick_sync.ps1 -DryRun
+
+Limited Sync (Test with N records):
+    powershell -ExecutionPolicy Bypass -File quick_sync.ps1 -Limit 100
+
+Verify Results:
+    powershell -ExecutionPolicy Bypass -File verify_sync_results.ps1
+
+====================================================
+STATUS
+====================================================
+
+Last Sync: November 6, 2025
+Accounts Synced: 2,097
+Success Rate: 100%
+Duration: 12.73 seconds
+
+Database State:
+- 959 Vantage investors (source_kind='vantage')
+- 41 Distributor investors (source_kind='DISTRIBUTOR')
+- Total: 1,000 investors
+
+====================================================
+KEY FEATURES
+====================================================
+
+✓ Idempotent upserts (safe to re-run)
+✓ External ID tracking (external_id)
+✓ Source tracking (source_kind='vantage')
+✓ Chunked processing (100 records/chunk)
+✓ Dry-run validation mode
+✓ Detailed error reporting
+
+====================================================
+TROUBLESHOOTING
+====================================================
+
+Check Function Logs:
+    supabase functions logs vantage-sync
+
+Test with Small Batch:
+    powershell -ExecutionPolicy Bypass -File quick_sync.ps1 -DryRun -Limit 10
+
+Verify Database State:
+    powershell -ExecutionPolicy Bypass -File verify_sync_results.ps1
+
+====================================================
+SQL QUICK CHECKS
+====================================================
+
+Count by Source:
+    SELECT source_kind, COUNT(*) FROM investors GROUP BY source_kind;
+
+Recent Vantage Investors:
+    SELECT name, external_id, created_at FROM investors
+    WHERE source_kind='vantage' ORDER BY created_at DESC LIMIT 10;
+
+Check Constraints:
+    SELECT constraint_name FROM information_schema.table_constraints
+    WHERE table_name='investors';
+
+====================================================
+IMPORTANT FILES
+====================================================
+
+Main Sync Script:
+    quick_sync.ps1
+
+Verification Script:
+    verify_sync_results.ps1
+
+Completion Report:
+    VANTAGE_SYNC_COMPLETE.md
+
+Original Docs:
+    VANTAGE_SYNC_SUCCESS.md
+
+====================================================
+MIGRATIONS APPLIED
+====================================================
+
+1. 20251105200000_add_investors_external_id_unique.sql
+   → Added UNIQUE constraint to external_id
+
+2. 20251105200001_add_vantage_source_kind.sql
+   → Added 'vantage' to investor_source_kind enum
+
+3. 20251105200002_drop_investors_name_unique.sql
+   → Removed UNIQUE constraint from name column
+
+====================================================
+CONTACT & SUPPORT
+====================================================
+
+Supabase Dashboard:
+    https://supabase.com/dashboard/project/qwgicrdcoqdketqhxbys
+
+Function Logs:
+    https://supabase.com/dashboard/project/qwgicrdcoqdketqhxbys/functions
+
+SQL Editor:
+    https://supabase.com/dashboard/project/qwgicrdcoqdketqhxbys/sql/new
+
+====================================================

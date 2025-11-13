@@ -1,0 +1,1239 @@
+﻿[
+    {
+        "PartyName":  "Kuperman",
+        "PaymentAgreement":  "Upfront - Invoice to Partners",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Kuperman Entity",
+        "OriginalText":  "1% of Equity"
+    },
+    {
+        "SpecificDeals":  [
+                              "Before",
+                              "after Walden Closing"
+                          ],
+        "PartyName":  "Shai Sheffer",
+        "Type":  "upfront_promote",
+        "MaxDeals":  null,
+        "PromoteRate":  0.27,
+        "PaymentAgreement":  "Promote - Invoice to Partners",
+        "InvestorName":  "DGTA Ltd",
+        "OriginalText":  "25 or 27% of promote (Before and after Walden Closing)",
+        "UpfrontRate":  null
+    },
+    {
+        "SpecificDeals":  [
+                              "Before",
+                              "after Walden Closing"
+                          ],
+        "PartyName":  "Yoram Dvash",
+        "Type":  "upfront_promote",
+        "MaxDeals":  null,
+        "PromoteRate":  0.27,
+        "PaymentAgreement":  "Promote - Invoice to Ltd",
+        "InvestorName":  "Fresh Properties and Investments",
+        "OriginalText":  "25 or 27% of promote (Before and after Walden Closing)",
+        "UpfrontRate":  null
+    },
+    {
+        "PartyName":  "Yoni Frieder",
+        "PaymentAgreement":  "",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Steve Ball",
+        "OriginalText":  "1% of Equity"
+    },
+    {
+        "PartyName":  "Cross Arch Holdings -David Kirchenbaum",
+        "PaymentAgreement":  "Upfront - Invoice",
+        "Type":  "upfront_promote",
+        "PromoteRate":  null,
+        "InvestorName":  "Peter Gyenes",
+        "OriginalText":  "25% Upfront",
+        "UpfrontRate":  0.25
+    },
+    {
+        "PartyName":  "Cross Arch Holdings -David Kirchenbaum",
+        "PaymentAgreement":  "Promote - Invoice",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.25,
+        "InvestorName":  "Barry Kirschenbaum",
+        "OriginalText":  "25% of Promote",
+        "UpfrontRate":  null
+    },
+    {
+        "PartyName":  "Ronnie Maliniak",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  null,
+        "InvestorName":  "Gil Shalit",
+        "OriginalText":  "25% Upfront",
+        "UpfrontRate":  0.25
+    },
+    {
+        "PartyName":  "Ronnie Maliniak",
+        "PaymentAgreement":  "Promote - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.25,
+        "InvestorName":  "Roni Atoun (Green Orka, AC Applications)",
+        "OriginalText":  "25% of Promote",
+        "UpfrontRate":  null
+    },
+    {
+        "PartyName":  "Ronnie Maliniak",
+        "PaymentAgreement":  "",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.1,
+        "InvestorName":  "The Service (Sheltered Housing)",
+        "OriginalText":  "10% Upfront 10% Promote",
+        "UpfrontRate":  0.1
+    },
+    {
+        "PartyName":  "Ilanit Tirosh",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  null,
+        "InvestorName":  "Ehud Svirsky",
+        "OriginalText":  "25% Upfront",
+        "UpfrontRate":  0.25
+    },
+    {
+        "PartyName":  "Ilanit Tirosh",
+        "PaymentAgreement":  "Promote - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.15,
+        "InvestorName":  "Miri Kerbs (A-T Management)",
+        "OriginalText":  "15% of Promote",
+        "UpfrontRate":  null
+    },
+    {
+        "PartyName":  "Tal Simchony",
+        "PaymentAgreement":  "Upfront - ",
+        "Type":  "upfront_promote",
+        "PromoteRate":  null,
+        "InvestorName":  "Dror Nahumi",
+        "OriginalText":  "15% Upfront",
+        "UpfrontRate":  0.15
+    },
+    {
+        "PartyName":  "Tal Simchony",
+        "PaymentAgreement":  "Upfront �..",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.05,
+        "InvestorName":  "Any IRAs",
+        "OriginalText":  "5% Upfront and 5% Promote",
+        "UpfrontRate":  0.05
+    },
+    {
+        "PartyName":  "Yoram Shalit",
+        "PaymentAgreement":  "Upfront - ??????? ?????",
+        "Type":  "upfront_promote",
+        "PromoteRate":  null,
+        "InvestorName":  "Yoram Avi-Guy",
+        "OriginalText":  "25% Upfront",
+        "UpfrontRate":  0.25
+    },
+    {
+        "PartyName":  "Yoram Shalit",
+        "PaymentAgreement":  "Promote - ",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.15,
+        "InvestorName":  "Eran \u0026 Nitsa Tal",
+        "OriginalText":  "15% of Promote",
+        "UpfrontRate":  null
+    },
+    {
+        "PartyName":  "Yoram Shalit",
+        "PaymentAgreement":  "",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Nili Karabel IRA",
+        "OriginalText":  "1% of equity??"
+    },
+    {
+        "PartyName":  "GW CPA",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  null,
+        "InvestorName":  "Chaim Zach (HMCA SA)",
+        "OriginalText":  "15% Upfront",
+        "UpfrontRate":  0.15
+    },
+    {
+        "PartyName":  "Guy Moses",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  null,
+        "InvestorName":  "Eran Farajun",
+        "OriginalText":  "25% Upfront",
+        "UpfrontRate":  0.25
+    },
+    {
+        "PartyName":  "Guy Moses",
+        "PaymentAgreement":  "Promote - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.15,
+        "InvestorName":  "Naomi Rudich",
+        "OriginalText":  "15% of Promote",
+        "UpfrontRate":  null
+    },
+    {
+        "PartyName":  "Sheara Einhorn",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  null,
+        "InvestorName":  "Howard Loboda",
+        "OriginalText":  "15% Upfront",
+        "UpfrontRate":  0.15
+    },
+    {
+        "PartyName":  "Lior Stinus from Freidkes \u0026 Co. CPA",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  null,
+        "InvestorName":  "Nurit Preis",
+        "OriginalText":  "15% Upfront",
+        "UpfrontRate":  0.15
+    },
+    {
+        "PartyName":  "Avi Fried",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  null,
+        "InvestorName":  "Shay Mizrachi",
+        "OriginalText":  "15% Upfront",
+        "UpfrontRate":  0.15
+    },
+    {
+        "PartyName":  "Formula Ventures Ltd- Shai Beilis",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  null,
+        "InvestorName":  "Shulamit Shimon",
+        "OriginalText":  "15% Upfront",
+        "UpfrontRate":  0.15
+    },
+    {
+        "PartyName":  "Ilan Kapelner Management Services ltd- Ilan Kapelner",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Moshe Friedman",
+        "OriginalText":  "1% of Equity"
+    },
+    {
+        "PartyName":  "Shlomo Waldmann",
+        "PaymentAgreement":  "",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Emanuel \u0026 Netanel Parter",
+        "OriginalText":  "1% of Equity"
+    },
+    {
+        "PartyName":  "Rubin Schlussel",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  75,
+        "InvestorName":  "Ehud Hameiri - Ash-Hag Consultants Ltd",
+        "OriginalText":  "0.75% of Equity"
+    },
+    {
+        "PartyName":  "HNA Investments Limited Liability- Ilan Grinberg and Jacob Asia (together)",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  50,
+        "InvestorName":  "Dov David \u0026 Dorit Gerecht Albukrek",
+        "OriginalText":  "0.5% of Equity"
+    },
+    {
+        "PartyName":  "Yoram Avi-Guy Lawyer- Yoram Avi Guy",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Yehezkel Gabai",
+        "OriginalText":  "1% of Equity"
+    },
+    {
+        "PartyName":  "HS Invest Pension Insurance Agency (2016) ltd- Hezi Schwartz",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "InvestorName":  "David Michaeli",
+        "OriginalText":  "1.5% of Equity"
+    },
+    {
+        "PartyName":  "HS Invest Pension Insurance Agency (2016) ltd- Hezi Schwartz",
+        "PaymentAgreement":  "Promote - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.1,
+        "InvestorName":  "Haim Helman",
+        "OriginalText":  "10% Promote",
+        "UpfrontRate":  null
+    },
+    {
+        "PartyName":  "David Reichman",
+        "PaymentAgreement":  "Upfront - 1099 from NA",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "David Reichman - commission for himself only on Beaufort",
+        "OriginalText":  "1% of Equity"
+    },
+    {
+        "PartyName":  "David Reichman",
+        "PaymentAgreement":  "Promote - 1099 from Partners",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.1,
+        "InvestorName":  "Yoram Mizrachi",
+        "OriginalText":  "10% Promote",
+        "UpfrontRate":  null
+    },
+    {
+        "PartyName":  "Agamim Commercial Real Estate- Moti Agam",
+        "PaymentAgreement":  "Upfront - Invoice Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  50,
+        "InvestorName":  "Alin Ajami Atzmon",
+        "OriginalText":  "0.5% of Equity"
+    },
+    {
+        "PartyName":  "Natai Investments- Alon Even Chen",
+        "PaymentAgreement":  "Upfront - Invoice Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  7500,
+        "InvestorName":  "Barak Matalon",
+        "OriginalText":  ".75% of equity plus 5,000NIS for Milagro, .75% of equity in Pond Bay, 1% of Ironwood"
+    },
+    {
+        "PartyName":  "Wiser Finance- Michael Mann",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Shalom Josef Hochman",
+        "OriginalText":  "1% of Equity"
+    },
+    {
+        "PartyName":  "Wiser Finance- Michael Mann",
+        "PaymentAgreement":  "Promote - Invoice to Ltd",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.1,
+        "InvestorName":  "Yigal Ben David",
+        "OriginalText":  "10% Promote",
+        "UpfrontRate":  null
+    },
+    {
+        "PartyName":  "Pioneer Wealth Management- Liat F",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  7500,
+        "InvestorName":  "Rami Pais",
+        "OriginalText":  ".75% of equity"
+    },
+    {
+        "PartyName":  "Tal Even",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  500,
+        "InvestorName":  "Shmuel Parag",
+        "OriginalText":  ".5% of equity"
+    },
+    {
+        "PartyName":  "Tal Even",
+        "PaymentAgreement":  "",
+        "Type":  "simple_equity",
+        "EquityBps":  500,
+        "InvestorName":  "Noa Juhn Parag",
+        "OriginalText":  ".5% of equity"
+    },
+    {
+        "SpecificDeals":  [
+                              "Weaverville",
+                              "Tyson"
+                          ],
+        "PartyName":  "Tal Even",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Jared Holzman",
+        "OriginalText":  "1% of equity for first two deals (Weaverville and Tyson)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Weaverville and�",
+        "PartyName":  "Tal Even",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Nissim Bar Siman Tov",
+        "OriginalText":  "1% of equity for first two deals (Weaverville and�)",
+        "MaxDeals":  null
+    },
+    {
+        "PartyName":  "Eyal Hrring- Financial Planning and Strategy- Eyal Herring",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  50,
+        "InvestorName":  "Ari Aharon Hillel - Check with Erez",
+        "OriginalText":  "0.5% of equity"
+    },
+    {
+        "SpecificDeals":  [
+                              "Tyde",
+                              "Hartford"
+                          ],
+        "PartyName":  "Yariv Avrahami",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "InvestorName":  "Limor Sagiv",
+        "OriginalText":  "Also 1% of equity for 2 deals only? (Tyde and Hartford)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  [
+                              "Eagle",
+                              "Hamilton MIll"
+                          ],
+        "PartyName":  "Yariv Avrahami",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Dan Pastenernak",
+        "OriginalText":  "First 2 deals only (Eagle and Hamilton MIll) 1% of Equity",
+        "MaxDeals":  2
+    },
+    {
+        "SpecificDeals":  [
+                              "Via",
+                              "Osborne"
+                          ],
+        "PartyName":  "Yariv Avrahami",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Sima Ben Chitrit",
+        "OriginalText":  "First 2 deals only (Via and Osborne) 1% of Equity",
+        "MaxDeals":  2
+    },
+    {
+        "PartyName":  "ThinkWise Consulting LLC- Lior Cohen",
+        "PaymentAgreement":  "Upfront - Invoice to NA",
+        "Type":  "simple_equity",
+        "EquityBps":  500,
+        "InvestorName":  "Yury Sofman",
+        "OriginalText":  ".5% of equity"
+    },
+    {
+        "PartyName":  "Gilad Slonim Insurance Agency Ltd- Gilad Slonim",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  500,
+        "InvestorName":  "Ori Peled",
+        "OriginalText":  ".5% of equity"
+    },
+    {
+        "PartyName":  "Gilad Slonim Insurance Agency Ltd- Gilad Slonim",
+        "PaymentAgreement":  "",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Ogenruth Ltd",
+        "OriginalText":  "1% of equity for this investor only"
+    },
+    {
+        "PartyName":  "Iprofit Ltd- Yifat Igler",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Jonathan \u0026 Tova Mann",
+        "OriginalText":  "1% of equity"
+    },
+    {
+        "SpecificDeals":  [
+                              "Encore",
+                              "Osceola"
+                          ],
+        "PartyName":  "Saar Gavish",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Nir Tzur",
+        "OriginalText":  "1% of equity for first two deals (Encore and Osceola)",
+        "MaxDeals":  null
+    },
+    {
+        "PartyName":  "YL Consulting Inc- Yoav Lachover",
+        "PaymentAgreement":  "Upfront - Invoice to NA",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Ariel Spivak",
+        "OriginalText":  "1% of equity"
+    },
+    {
+        "PartyName":  "YL Consulting Inc- Yoav Lachover",
+        "PaymentAgreement":  "Promote - Invoice Partners",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.1,
+        "InvestorName":  "Ayal Brener",
+        "OriginalText":  "10% of promote",
+        "UpfrontRate":  null
+    },
+    {
+        "SpecificDeals":  "Milagro",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "Upfront - 1099 from NA",
+        "InvestorName":  "RAC Advisors LLC",
+        "OriginalText":  "1.5% of Equity for first deal (Milagro), 1% for deals 2\u00263 (Pencil, Skyline), ",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Greenway",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Adam Gotskind",
+        "OriginalText":  "1.5% of Equity for first deal (Greenway), 1% for deals 2\u00263 (Parkwood, Riverside),",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Midtown",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Steve Feiger",
+        "OriginalText":  "1.5% of Equity for first deal (Midtown), 1% for deals 2\u00263 (Parkwood, Hickory), .5% for deals 4\u00265 (Tyde, 1010)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Parkwood",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Fred Margulies",
+        "OriginalText":  "1.5% of Equity for first deal (Parkwood), 1% for deals 2\u00263 (Pencil, Skyline), .5% for deals 4\u00265 (McGaw, Riverside)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Parkwood",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "David Schreiber",
+        "OriginalText":  "1.5% of Equity for first deal (Parkwood), 1% for deals 2\u00263 (FoxBank, Skyline),",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Parkwood",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Stan Weissbrot",
+        "OriginalText":  "1.5% of Equity for first deal (Parkwood), 1% for deals 2\u00263 (FoxBank, Skyline)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Parkwood",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Abraham Stern",
+        "OriginalText":  "1.5% of Equity for first deal (Parkwood), 1% for deals 2\u00263 (FoxBank, Skyline), .5% for deals 4\u00265 (CLI)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Aventine",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Avi Shaked",
+        "OriginalText":  "1.5% of Equity for first deal (Aventine), 1% for deals 2\u00263 (Skyline), .5% for deals 4\u00265",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Aventine",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Charles Serlin",
+        "OriginalText":  "1.5% of Equity for first deal (Aventine), 1% for deals 2\u00263 (Tyde, Skyline), .5% for deals 4\u00265 (McGaw)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Tyde",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Robert Marconi",
+        "OriginalText":  "1.5% of Equity for first deal (Tyde), 1% for deals 2\u00263, .5% for deals 4\u00265",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "CLI",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Todd Stern",
+        "OriginalText":  "1.5% of Equity for first deal (CLI), 1% for deals 2\u00263 (Riverside), .5% for deals 4\u00265",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Huntsville",
+        "PartyName":  "Dror Zetouni",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Jack Faintuch",
+        "OriginalText":  "1.5% of Equity for first deal (Huntsville), 1% for deals 2\u00263 (Berwick), .5% for deals 4\u00265",
+        "MaxDeals":  null
+    },
+    {
+        "PartyName":  "Lighthouse F.S Ltd- Avihay",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Rafael Ashkenazi",
+        "OriginalText":  "1% of equity"
+    },
+    {
+        "PartyName":  "Lighthouse F.S Ltd- Avihay",
+        "PaymentAgreement":  "Promote - ???",
+        "Type":  "upfront_promote",
+        "PromoteRate":  0.1,
+        "InvestorName":  "Shmuel Carmon",
+        "OriginalText":  "10% of promote",
+        "UpfrontRate":  null
+    },
+    {
+        "PartyName":  "Sparta Capital- Yonel Dvash",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "InvestorName":  "Gilad Kapelushnick",
+        "OriginalText":  "1% of equity"
+    },
+    {
+        "SpecificDeals":  "Hickory Flat",
+        "PartyName":  "Gil Haramati",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "Upfront - 1099 from NA",
+        "InvestorName":  "Dan Krausz",
+        "OriginalText":  "1.5% of Equity for first deal (Hickory Flat), 1% for deal 2 (FoxBank), .5% for deals 3-5 (Aventine, Tyde, CLI)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Aventine",
+        "PartyName":  "Gil Haramati",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Nicky Stup \u0026 Wife",
+        "OriginalText":  "1.5% of Equity for first deal (Aventine), 1% for deal 2 (1010 Midtown), .5% for deals 3-5 ()",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Hartford",
+        "PartyName":  "Gil Haramati",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Ofer Ben-Aharon",
+        "OriginalText":  "1.5% of Equity for first deal (Hartford), 1% for deal 2 (Fitzroy), .5% for deals 3-5 (5 East Pointe Dr)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Brentwood",
+        "PartyName":  "Gil Haramati",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Ofer Levy",
+        "OriginalText":  "1.5% of Equity for first deal (Brentwood), 1% for deal 2 (), .5% for deals 3-5 ()",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  [
+                              "McGaw $150k",
+                              "Huntsville $150k",
+                              "Riverside $150k",
+                              "Berwick $150k",
+                              "Dry Creek $150k"
+                          ],
+        "PartyName":  "Beny Shafir",
+        "Type":  "simple_equity",
+        "EquityBps":  150,
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "InvestorName":  "Boaz Paz",
+        "OriginalText":  "1.5% of equity until $1M of investments (McGaw $150k, Huntsville $150k, Riverside $150k, Berwick $150k, Dry Creek $150k)",
+        "MaxDeals":  null
+    },
+    {
+        "PartyName":  "Atiela Investments Ltd- Yoav Holzer",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  50,
+        "InvestorName":  "Roliya Investments LLC",
+        "OriginalText":  "0.5% of equity"
+    },
+    {
+        "SpecificDeals":  [
+                              "1010 Midtown",
+                              "Skyline",
+                              "Harry Hines"
+                          ],
+        "PartyName":  "Capital Link Family Office- Shiri Hybloom",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "InvestorName":  "Tehila Ben Moshe",
+        "OriginalText":  "1% of equity for first 4 deals (1010 Midtown, Skyline, Harry Hines)",
+        "MaxDeals":  4
+    },
+    {
+        "SpecificDeals":  [
+                              "East Hennepin",
+                              "Perdido"
+                          ],
+        "PartyName":  "Capital Link Family Office- Shiri Hybloom",
+        "Type":  "simple_equity",
+        "EquityBps":  100,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Doron Peretz",
+        "OriginalText":  "1% of equity for first 4 deals (East Hennepin, Perdido)",
+        "MaxDeals":  4
+    },
+    {
+        "SpecificDeals":  [
+                              "1010 Midtown",
+                              "East Hennepin",
+                              "Skyline",
+                              "Perdido"
+                          ],
+        "PartyName":  "Capital Link Family Office- Shiri Hybloom",
+        "Type":  "simple_equity",
+        "EquityBps":  50,
+        "PaymentAgreement":  "",
+        "InvestorName":  "Yoram Baumann",
+        "OriginalText":  "0.5% of equity for first 4 deals (1010 Midtown, East Hennepin, Skyline, Perdido)",
+        "MaxDeals":  4
+    },
+    {
+        "SpecificDeals":  "McGaw",
+        "PartyName":  "Isaac Fattal",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "Upfront - 1099 from NA",
+        "InvestorName":  "Maragret Frank",
+        "OriginalText":  "1.5% for first deal (McGaw), 1% for deals 2\u00263",
+        "MaxDeals":  null
+    },
+    {
+        "PartyName":  "Stark Yoel Kadish, Lawyer (Accountant)- Yoel Stark",
+        "PaymentAgreement":  "Upfront - Invoice to Ltd",
+        "Type":  "simple_equity",
+        "EquityBps":  50,
+        "InvestorName":  "Benny Silverman",
+        "OriginalText":  "0.5% of equity"
+    },
+    {
+        "SpecificDeals":  "Dry Creek",
+        "PartyName":  "SRI Global Group- Daphna",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Mickey Amir Hanegbee Kaplinsky",
+        "OriginalText":  "1.5% for first deal (Dry Creek), 1% for deal 2 \u0026 0.5% for deal 3",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Snellville",
+        "PartyName":  "SRI Global Group- Daphna",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Eliezer Abramov",
+        "OriginalText":  "1.5% for first deal (Snellville), 1% for deal 2 \u0026 0.5% for deal 3",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Meitav Graybul Fund",
+        "PartyName":  "SRI Global Group- Daphna",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Yuval Shacham",
+        "OriginalText":  "1.5% for first deal (Meitav Graybul Fund), 1% for deal 2 \u0026 0.5% for deal 3",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Brentwood",
+        "PartyName":  "Gabriel Taub",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "Upfront - From NA. Either 1099 or invoice",
+        "InvestorName":  "Frank Cortese",
+        "OriginalText":  "1.5% for first deal (Brentwood), 1% for deal 2 (Hartford), .5% for deal 3",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Brentwood",
+        "PartyName":  "Gabriel Taub",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Brenden Selway",
+        "OriginalText":  "1.5% for first deal (Brentwood), 1% for deal 2 (Hartford), .5% for deal 3",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Thatcher",
+        "PartyName":  "Amit Zeevi",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Octavian Patrascu (Netcore Investments Limited)",
+        "OriginalText":  "1.5% for first deal (Thatcher), 1% for deal 2 (classic city), .5% for deal 3 (snellville)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Statesboro",
+        "PartyName":  "Amit Zeevi",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Idan Grossman - Mangro Pty Ltd as Trustee for Mind Plus Trust",
+        "OriginalText":  "1.5% for first deal (Statesboro), 1% for deal 2 (1000 Crosby), .5% for deal 3 (XXXX)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Hoschton IL",
+        "PartyName":  "Amit Zeevi",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Idan Kornfeld",
+        "OriginalText":  "1.5% for first deal (Hoschton IL), 1% for deal 2 (), .5% for deal 3 (XXXX)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Hartford",
+        "PartyName":  "Roy Gold",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Ofir Rozenfeld",
+        "OriginalText":  "1.5% for first deal (Hartford), 1% for deal 2 (2840 Orange), .5% for deal 3",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Hartford",
+        "PartyName":  "Roy Gold",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Shlomit Rosenfeld",
+        "OriginalText":  "1.5% for first deal (Hartford), 1% for deal 2 (Mason), .5% for deal 3 (2840 Orange)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Reems Creek",
+        "PartyName":  "Roy Gold",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Aharon Rasouli",
+        "OriginalText":  "1.5% for first deal (Reems Creek), 1% for deal 2 (Crosby), .5% for deal 3 (Oakwood)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "2840 Orange",
+        "PartyName":  "Roy Gold",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Miri Rozenfeld",
+        "OriginalText":  "1.5% for first deal (2840 Orange), 1% for deal 2 (), .5% for deal 3",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Mason",
+        "PartyName":  "Tzafit Pension Insurance Agency (2023) Ltd",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  150,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Nomi A. Holdings Ltd",
+        "OriginalText":  "1.5% for first deal (Mason), 1% for deal 2 (Statesboro), .5% for deal 3 (Hudson Heritage)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Statesboro",
+        "PartyName":  "Andrew Tanzer [company:  TanzerVest LLC]",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Gene Dattel",
+        "OriginalText":  "1% for the first deal (Statesboro), 1% deal 2, 1% deal 3",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Statesboro",
+        "PartyName":  "Andrew Tanzer [company:  TanzerVest LLC]",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Licia Hahn",
+        "OriginalText":  "1% for the first deal (Statesboro), 1% deal 2, 1% deal 3",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Statesboro",
+        "PartyName":  "Andrew Tanzer [company:  TanzerVest LLC]",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Peter Bermont",
+        "OriginalText":  "1% for the first deal (Statesboro), 1% deal 2 (Hiram 2024), 1% deal 3",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Hoschton IL",
+        "PartyName":  "Andrew Tanzer [company:  TanzerVest LLC]",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "John Pomfret",
+        "OriginalText":  "1% for the first deal (Hoschton IL), 1% deal 2 (Eastport), 1% deal 3 (Tyson)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Hudson Heritage",
+        "PartyName":  "Andrew Tanzer [company:  TanzerVest LLC]",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Stephen Tanzer",
+        "OriginalText":  "1% for the first deal (Hudson Heritage), 1% deal 2 (Hiram 2024), 1% deal 3",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Sugarloaf",
+        "PartyName":  "Andrew Tanzer [company:  TanzerVest LLC]",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "2-3"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Tim Ferguson",
+        "OriginalText":  "1% for the first deal (Sugarloaf), 1% deal 2 (1302 Eastport), 1% deal 3 (310 Tyson)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Statesboro",
+        "PartyName":  "Uri Golani",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  200,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  200,
+                          "DealRange":  "2-3"
+                      },
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "2+"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Eilon Sharon",
+        "OriginalText":  "2% on the first deal (Statesboro) and 1% for deals 2 (Crosby),3 (Sugarloaf),and 4",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Statesboro",
+        "PartyName":  "Uri Golani",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  200,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  200,
+                          "DealRange":  "2-3"
+                      },
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "2+"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Alon Ascher",
+        "OriginalText":  "2% on the first deal (Statesboro) and 1% for deals 2 (Crosby),3 (Sugarloaf),and 4 (Hoschton IL)",
+        "MaxDeals":  null
+    },
+    {
+        "SpecificDeals":  "Reems Creek",
+        "PartyName":  "Uri Golani",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  200,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  200,
+                          "DealRange":  "2-3"
+                      },
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "2+"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Julien Barbier",
+        "OriginalText":  "2% on the first deal (Reems Creek) and 1% for deals 2 (Crosby),3 (Oakwood),and 4 (Sugarloaf)",
+        "MaxDeals":  null
+    },
+    {
+        "PartyName":  "Uri Golani",
+        "PaymentAgreement":  "",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  200,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  200,
+                          "DealRange":  "2-3"
+                      },
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "2+"
+                      }
+                  ],
+        "InvestorName":  "Ling and Wang Song",
+        "OriginalText":  "2% on the first deal and 1% for deals 2,3,and 4"
+    },
+    {
+        "SpecificDeals":  "Oakwood",
+        "PartyName":  "Uri Golani",
+        "Type":  "tiered_by_deal_count",
+        "Tiers":  [
+                      {
+                          "EquityBps":  200,
+                          "DealRange":  "1"
+                      },
+                      {
+                          "EquityBps":  200,
+                          "DealRange":  "2-3"
+                      },
+                      {
+                          "EquityBps":  100,
+                          "DealRange":  "2+"
+                      }
+                  ],
+        "PaymentAgreement":  "",
+        "InvestorName":  "Yee Jiun Song",
+        "OriginalText":  "2% on the first deal (Oakwood) and 1% for deals 2 (Sugarloaf),3,and 4",
+        "MaxDeals":  null
+    },
+    {
+        "PartyName":  "Mordechai Kubany company:  Double Kappa, LLC",
+        "PaymentAgreement":  "Invoice",
+        "Type":  "simple_equity",
+        "EquityBps":  400,
+        "InvestorName":  "Louis Blumberg [The AFB Fund LLC]",
+        "OriginalText":  "4% of equity on Hudson"
+    }
+]

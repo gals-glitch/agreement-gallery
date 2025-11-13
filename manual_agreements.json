@@ -1,0 +1,84 @@
+[
+  {
+    "InvestorName": "Yaniv Radia",
+    "PartyName": "Kuperman",
+    "Type": "simple_equity",
+    "EquityBps": 350,
+    "Notes": "Historical tiered structure - using latest tier (35%) for future transactions",
+    "OriginalText": "If deal closed before February 1, 2018 gets 25% commission"
+  },
+  {
+    "InvestorName": "Gil Serok Revocable Trust",
+    "PartyName": "Kuperman",
+    "Type": "simple_equity",
+    "EquityBps": 350,
+    "Notes": "Historical tiered structure - using latest tier (35%) for future transactions",
+    "OriginalText": "Between February 1, 2018 and December 12, 2019 gets 27%"
+  },
+  {
+    "InvestorName": "Gadi Gerbi",
+    "PartyName": "Kuperman",
+    "Type": "simple_equity",
+    "EquityBps": 350,
+    "Notes": "Historical tiered structure - using latest tier (35%) for future transactions",
+    "OriginalText": "Between December 12 and October 31, 2020 gets 30% After October 31, 2020 gets 35%"
+  },
+  {
+    "InvestorName": "Avraham Weiss",
+    "PartyName": "Guy Moses",
+    "Type": "upfront_promote",
+    "UpfrontRate": 0.075,
+    "PromoteRate": 0.075,
+    "Notes": "50% of Guy Moses standard rate (15% → 7.5%)",
+    "OriginalText": "(Only 50% of the above fees)"
+  },
+  {
+    "InvestorName": "Pladot Paldom Ltd",
+    "PartyName": "Guy Moses",
+    "Type": "upfront_promote",
+    "UpfrontRate": 0.075,
+    "PromoteRate": 0.075,
+    "Notes": "50% of Guy Moses standard rate (15% → 7.5%)",
+    "OriginalText": "(Only 50% of the above fees)"
+  },
+  {
+    "InvestorName": "Noam Zegman",
+    "PartyName": "Guy Moses",
+    "Type": "upfront_promote",
+    "UpfrontRate": 0.075,
+    "PromoteRate": 0.075,
+    "Notes": "50% of Guy Moses standard rate (15% → 7.5%)",
+    "OriginalText": "(Only 50% of the above fees)"
+  },
+  {
+    "InvestorName": "Ariel Efrati",
+    "PartyName": "Yair Almagor",
+    "Type": "flat_fee",
+    "FlatFee": 1000,
+    "FlatFeeCurrency": "USD",
+    "Notes": "One-time fee - likely already paid, set to inactive",
+    "OriginalText": "$1,000USD one time fee"
+  },
+  {
+    "InvestorName": "David Goone",
+    "PartyName": "Dror Zetouni ",
+    "Type": "tiered_by_deal_count",
+    "Tiers": [
+      {"DealRange": "1", "EquityBps": 150},
+      {"DealRange": "2-3", "EquityBps": 100},
+      {"DealRange": "4-5", "EquityBps": 50}
+    ],
+    "Notes": "Aventine, Steamboat, Skyline count as 1st deal - current count needs verification",
+    "OriginalText": "Aventine, Steamboat (Dead), Skyline all considered 1st deal"
+  },
+  {
+    "InvestorName": "Matthew Rosenbluth Rosenbluth Trust",
+    "PartyName": "Brian Horner",
+    "Type": "deal_specific_limit",
+    "EquityBps": 100,
+    "MaxDeals": 3,
+    "SpecificDeals": ["Perdido"],
+    "Notes": "1% equity for first 3 deals - need to track deal count",
+    "OriginalText": "1% for the first 3 deals (Perdido)"
+  }
+]

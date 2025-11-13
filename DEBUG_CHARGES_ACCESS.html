@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Charges Access</title>
+</head>
+<body>
+    <h1>Quick Debug Instructions</h1>
+
+    <h2>Add this to your browser console:</h2>
+    <pre>
+// Check what roles are currently loaded
+const authState = window.__REACT_DEVTOOLS_GLOBAL_HOOK__?.renderers?.get(1)?.getCurrentFiber();
+console.log('Auth State:', authState);
+
+// Or simpler - just check localStorage
+const authData = JSON.parse(localStorage.getItem('sb-qwgicrdcoqdketqhxbys-auth-token') || '{}');
+console.log('Stored Auth:', authData);
+    </pre>
+
+    <h2>Quick Fix Options:</h2>
+
+    <h3>Option 1: Hard Refresh (Recommended)</h3>
+    <ol>
+        <li>Close all browser tabs for localhost:8080</li>
+        <li>Clear browser cache (Ctrl+Shift+Delete)</li>
+        <li>Reopen http://localhost:8080</li>
+        <li>Sign in again</li>
+    </ol>
+
+    <h3>Option 2: Clear LocalStorage</h3>
+    <ol>
+        <li>Open Dev Console (F12)</li>
+        <li>Go to Application tab</li>
+        <li>Click "Local Storage" → "http://localhost:8080"</li>
+        <li>Right-click → "Clear"</li>
+        <li>Refresh page and sign in again</li>
+    </ol>
+
+    <h3>Option 3: Direct Database Check</h3>
+    <p>Run this in Supabase SQL Editor:</p>
+    <pre>
+SELECT
+    u.email,
+    array_agg(ur.role_key) as roles
+FROM auth.users u
+LEFT JOIN user_roles ur ON ur.user_id = u.id
+WHERE u.email = 'gals@buligocapital.com'
+GROUP BY u.email;
+    </pre>
+    <p>Expected result: roles = {admin,finance,manager,ops,viewer}</p>
+</body>
+</html>

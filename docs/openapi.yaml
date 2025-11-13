@@ -1,0 +1,1375 @@
+openapi: 3.0.3
+info:
+  title: Buligo Capital API V1
+  description: Fee Management System - Redesigned Architecture (v1.8.0 - Charge Workflow)
+  version: 1.8.0
+  contact:
+    name: Buligo Capital
+    email: support@buligocapital.com
+
+servers:
+  - url: https://qwgicrdcoqdketqhxbys.supabase.co/functions/v1/api-v1
+    description: Production Edge Function
+  - url: http://localhost:54321/functions/v1/api-v1
+    description: Local Development
+
+security:
+  - BearerAuth: []
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Party:
+      type: object
+      required: [id, name, active]
+      properties:
+        id: {type: integer}
+        name: {type: string}
+        email: {type: string, nullable: true}
+        country: {type: string, nullable: true}
+        tax_id: {type: string, nullable: true}
+        active: {type: boolean}
+        notes: {type: string, nullable: true}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+
+    CreatePartyRequest:
+      type: object
+      required: [name]
+      properties:
+        name: {type: string}
+        email: {type: string}
+        country: {type: string}
+        tax_id: {type: string}
+        active: {type: boolean, default: true}
+        notes: {type: string}
+
+    Fund:
+      type: object
+      required: [id, name, currency, status]
+      properties:
+        id: {type: integer}
+        name: {type: string}
+        vintage_year: {type: integer, nullable: true}
+        currency: {type: string, default: USD}
+        status: {type: string}
+        notes: {type: string, nullable: true}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+
+    CreateFundRequest:
+      type: object
+      required: [name]
+      properties:
+        name: {type: string}
+        vintage_year: {type: integer}
+        currency: {type: string, default: USD}
+        status: {type: string, default: active}
+        notes: {type: string}
+
+    Deal:
+      type: object
+      required: [id, name, status]
+      properties:
+        id: {type: integer}
+        fund_id: {type: integer, nullable: true}
+        name: {type: string}
+        address: {type: string, nullable: true}
+        status: {type: string}
+        close_date: {type: string, format: date, nullable: true}
+        partner_company_id: {type: integer, nullable: true}
+        fund_group_id: {type: integer, nullable: true}
+        sector: {type: string, nullable: true}
+        year_built: {type: integer, nullable: true}
+        units: {type: integer, nullable: true}
+        sqft: {type: integer, nullable: true}
+        income_producing: {type: boolean}
+        exclude_gp_from_commission: {type: boolean, default: true}
+        equity_to_raise: {type: number, nullable: true, readOnly: true}
+        raised_so_far: {type: number, nullable: true, readOnly: true}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+
+    Agreement:
+      type: object
+      required: [id, party_id, scope, pricing_mode, effective_from, status]
+      properties:
+        id: {type: integer}
+        party_id: {type: integer}
+        scope: {type: string, enum: [FUND, DEAL]}
+        fund_id: {type: integer, nullable: true}
+        deal_id: {type: integer, nullable: true}
+        pricing_mode: {type: string, enum: [TRACK, CUSTOM]}
+        selected_track: {type: string, enum: [A, B, C], nullable: true}
+        effective_from: {type: string, format: date}
+        effective_to: {type: string, format: date, nullable: true}
+        vat_included: {type: boolean}
+        status: {type: string, enum: [DRAFT, AWAITING_APPROVAL, APPROVED, SUPERSEDED]}
+        created_by: {type: string, nullable: true}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+        party: {type: object, properties: {name: {type: string}}}
+        fund: {type: object, properties: {name: {type: string}}}
+        deal: {type: object, properties: {name: {type: string}}}
+        snapshot:
+          type: object
+          nullable: true
+          properties:
+            resolved_upfront_bps: {type: integer}
+            resolved_deferred_bps: {type: integer}
+            seed_version: {type: integer}
+            approved_at: {type: string, format: date-time}
+
+    CreateAgreementRequest:
+      type: object
+      required: [party_id, scope, pricing_mode, effective_from]
+      properties:
+        party_id: {type: integer}
+        scope: {type: string, enum: [FUND, DEAL]}
+        fund_id: {type: integer}
+        deal_id: {type: integer}
+        pricing_mode: {type: string, enum: [TRACK, CUSTOM]}
+        selected_track: {type: string, enum: [A, B, C]}
+        effective_from: {type: string, format: date}
+        effective_to: {type: string, format: date}
+        vat_included: {type: boolean, default: false}
+        custom_terms:
+          type: object
+          properties:
+            upfront_bps: {type: integer}
+            deferred_bps: {type: integer}
+
+    Run:
+      type: object
+      required: [id, fund_id, period_from, period_to, status]
+      properties:
+        id: {type: integer}
+        fund_id: {type: integer}
+        period_from: {type: string, format: date}
+        period_to: {type: string, format: date}
+        status: {type: string, enum: [DRAFT, IN_PROGRESS, AWAITING_APPROVAL, APPROVED]}
+        totals: {type: object, nullable: true}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+        fund: {type: object, properties: {name: {type: string}}}
+
+    Contribution:
+      type: object
+      required: [id, investor_id, paid_in_date, amount]
+      properties:
+        id: {type: integer}
+        investor_id: {type: integer}
+        deal_id: {type: integer, nullable: true}
+        fund_id: {type: integer, nullable: true}
+        paid_in_date: {type: string, format: date}
+        amount: {type: number}
+        currency: {type: string, default: USD}
+        fx_rate: {type: number, nullable: true}
+        source_batch: {type: string, nullable: true}
+        created_at: {type: string, format: date-time}
+
+    CreateContributionRequest:
+      type: object
+      required: [investor_id, paid_in_date, amount]
+      properties:
+        investor_id: {type: integer}
+        deal_id: {type: integer, description: 'Exactly one of deal_id or fund_id must be set'}
+        fund_id: {type: integer, description: 'Exactly one of deal_id or fund_id must be set'}
+        paid_in_date: {type: string, format: date}
+        amount: {type: number, minimum: 0, exclusiveMinimum: true}
+        currency: {type: string, default: USD}
+        fx_rate: {type: number}
+        source_batch: {type: string}
+
+    ErrorDetail:
+      type: object
+      properties:
+        field: {type: string}
+        row: {type: integer}
+        value: {}
+        constraint: {type: string}
+        message: {type: string}
+
+    Error:
+      type: object
+      required: [code, message, timestamp]
+      properties:
+        code:
+          type: string
+          enum: [VALIDATION_ERROR, FORBIDDEN, CONFLICT, NOT_FOUND, UNAUTHORIZED, INTERNAL_ERROR, UNPROCESSABLE_ENTITY]
+        message:
+          type: string
+          description: Human-readable error summary
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+        timestamp:
+          type: string
+          format: date-time
+        requestId:
+          type: string
+          nullable: true
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      description: Standard error response wrapper (legacy format - being phased out)
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            code:
+              type: string
+            details:
+              type: object
+
+    Charge:
+      type: object
+      required: [id, investor_id, contribution_id, status, base_amount, vat_amount, total_amount, currency]
+      properties:
+        id: {type: string, format: uuid}
+        numeric_id: {type: integer}
+        investor_id: {type: integer}
+        deal_id: {type: integer, nullable: true}
+        fund_id: {type: integer, nullable: true}
+        contribution_id: {type: integer}
+        status: {type: string, enum: [DRAFT, PENDING, APPROVED, PAID, REJECTED]}
+        base_amount: {type: number, format: double}
+        discount_amount: {type: number, format: double}
+        vat_amount: {type: number, format: double}
+        total_amount: {type: number, format: double}
+        credits_applied_amount: {type: number, format: double, nullable: true}
+        net_amount: {type: number, format: double, nullable: true}
+        currency: {type: string, default: USD}
+        snapshot_json: {type: object}
+        computed_at: {type: string, format: date-time}
+        submitted_at: {type: string, format: date-time, nullable: true}
+        approved_at: {type: string, format: date-time, nullable: true}
+        approved_by: {type: string, nullable: true}
+        rejected_at: {type: string, format: date-time, nullable: true}
+        rejected_by: {type: string, nullable: true}
+        reject_reason: {type: string, nullable: true}
+        paid_at: {type: string, format: date-time, nullable: true}
+        payment_ref: {type: string, nullable: true}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+        investor: {type: object, properties: {id: {type: integer}, name: {type: string}}}
+        deal: {type: object, nullable: true, properties: {id: {type: integer}, name: {type: string}}}
+        fund: {type: object, nullable: true, properties: {id: {type: integer}, name: {type: string}}}
+        contribution: {type: object, properties: {id: {type: integer}, amount: {type: number}, paid_in_date: {type: string, format: date}}}
+        credit_applications:
+          type: array
+          items:
+            type: object
+            properties:
+              credit_id: {type: string, format: uuid}
+              amount: {type: number, format: double}
+              applied_at: {type: string, format: date-time}
+
+    ComputeChargeRequest:
+      type: object
+      required: [contribution_id]
+      properties:
+        contribution_id: {type: integer, description: 'Contribution ID to compute charge for'}
+
+    RejectChargeRequest:
+      type: object
+      required: [reject_reason]
+      properties:
+        reject_reason: {type: string, minLength: 10, description: 'Reason for rejection (min 10 characters)'}
+
+    MarkPaidRequest:
+      type: object
+      properties:
+        payment_ref: {type: string, description: 'Payment reference (e.g., wire transfer ID)'}
+        paid_at: {type: string, format: date-time, description: 'Payment timestamp (defaults to now)'}
+
+    BatchComputeRequest:
+      type: object
+      required: [contribution_ids]
+      properties:
+        contribution_ids:
+          type: array
+          items: {type: integer}
+          maxItems: 1000
+          description: 'List of contribution IDs to compute charges for (max 1000)'
+
+    BatchComputeResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              contribution_id: {type: integer}
+              charge_id: {type: string, format: uuid, nullable: true}
+              status: {type: string, enum: [success, error, queued]}
+              errors: {type: array, items: {type: string}}
+        total: {type: integer}
+        successful: {type: integer}
+        failed: {type: integer}
+        queued: {type: integer, nullable: true}
+
+paths:
+  /parties:
+    get:
+      summary: List parties
+      tags: [Parties]
+      parameters:
+        - name: q
+          in: query
+          schema: {type: string}
+        - name: active
+          in: query
+          schema: {type: boolean}
+        - name: limit
+          in: query
+          schema: {type: integer, default: 50}
+        - name: offset
+          in: query
+          schema: {type: integer, default: 0}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items: {type: array, items: {$ref: '#/components/schemas/Party'}}
+                  total: {type: integer}
+    post:
+      summary: Create party
+      tags: [Parties]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CreatePartyRequest'}
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: {type: integer}
+
+  /parties/{id}:
+    get:
+      summary: Get party by ID
+      tags: [Parties]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Party'}
+    patch:
+      summary: Update party
+      tags: [Parties]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CreatePartyRequest'}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: {type: boolean}
+
+  /funds:
+    get:
+      summary: List funds
+      tags: [Funds]
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items: {type: array, items: {$ref: '#/components/schemas/Fund'}}
+                  total: {type: integer}
+    post:
+      summary: Create fund
+      tags: [Funds]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CreateFundRequest'}
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: {type: integer}
+
+  /funds/{id}:
+    get:
+      summary: Get fund by ID
+      tags: [Funds]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Fund'}
+
+  /deals:
+    get:
+      summary: List deals
+      tags: [Deals]
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items: {type: array, items: {$ref: '#/components/schemas/Deal'}}
+                  total: {type: integer}
+    post:
+      summary: Create deal
+      tags: [Deals]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/Deal'}
+      responses:
+        '201':
+          description: Created
+
+  /deals/{id}:
+    get:
+      summary: Get deal by ID
+      tags: [Deals]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Deal'}
+    patch:
+      summary: Update deal (status & GP exclusion only)
+      tags: [Deals]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status: {type: string}
+                exclude_gp_from_commission: {type: boolean}
+      responses:
+        '200':
+          description: Success
+
+  /fund-tracks:
+    get:
+      summary: List tracks for fund
+      tags: [Fund Tracks]
+      parameters:
+        - name: fund_id
+          in: query
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    track_code: {type: string, enum: [A, B, C]}
+                    upfront_bps: {type: integer}
+                    deferred_bps: {type: integer}
+                    is_locked: {type: boolean}
+
+  /agreements:
+    get:
+      summary: List agreements
+      tags: [Agreements]
+      parameters:
+        - name: party_id
+          in: query
+          schema: {type: integer}
+        - name: fund_id
+          in: query
+          schema: {type: integer}
+        - name: status
+          in: query
+          schema: {type: string, enum: [DRAFT, AWAITING_APPROVAL, APPROVED, SUPERSEDED]}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items: {type: array, items: {$ref: '#/components/schemas/Agreement'}}
+                  total: {type: integer}
+    post:
+      summary: Create agreement
+      tags: [Agreements]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CreateAgreementRequest'}
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Validation error (e.g., FUND + CUSTOM)
+
+  /agreements/{id}:
+    get:
+      summary: Get agreement by ID
+      tags: [Agreements]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Agreement'}
+
+  /agreements/{id}/submit:
+    post:
+      summary: Submit agreement for approval
+      tags: [Agreements]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string}
+                  message: {type: string}
+
+  /agreements/{id}/approve:
+    post:
+      summary: Approve agreement (RBAC - manager/admin only)
+      tags: [Agreements]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized (requires manager role)
+
+  /agreements/{id}/reject:
+    post:
+      summary: Reject agreement
+      tags: [Agreements]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [comment]
+              properties:
+                comment: {type: string}
+      responses:
+        '200':
+          description: Success
+
+  /agreements/{id}/amend:
+    post:
+      summary: Create amendment (v2 Draft, marks v1 SUPERSEDED)
+      tags: [Agreements]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  new_agreement_id: {type: integer}
+                  message: {type: string}
+
+  /runs:
+    get:
+      summary: List runs
+      tags: [Runs]
+      parameters:
+        - name: fund_id
+          in: query
+          schema: {type: integer}
+        - name: status
+          in: query
+          schema: {type: string}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items: {type: array, items: {$ref: '#/components/schemas/Run'}}
+                  total: {type: integer}
+    post:
+      summary: Create run
+      tags: [Runs]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [fund_id, period_from, period_to]
+              properties:
+                fund_id: {type: integer}
+                period_from: {type: string, format: date}
+                period_to: {type: string, format: date}
+      responses:
+        '201':
+          description: Created
+
+  /runs/{id}/submit:
+    post:
+      summary: Submit run for approval
+      tags: [Runs]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: Success
+
+  /runs/{id}/approve:
+    post:
+      summary: Approve run (RBAC - manager/admin only)
+      tags: [Runs]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized
+
+  /runs/{id}/generate:
+    post:
+      summary: Generate calculation (only when APPROVED)
+      tags: [Runs]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: object
+                    properties:
+                      fees_total: {type: number}
+                      lines: {type: integer}
+                  export:
+                    type: object
+                    properties:
+                      csv_path: {type: string}
+
+  /contributions:
+    get:
+      summary: List contributions
+      tags: [Contributions]
+      parameters:
+        - name: fund_id
+          in: query
+          schema: {type: integer}
+          description: Filter by fund
+        - name: deal_id
+          in: query
+          schema: {type: integer}
+          description: Filter by deal
+        - name: investor_id
+          in: query
+          schema: {type: integer}
+          description: Filter by investor
+        - name: from
+          in: query
+          schema: {type: string, format: date}
+          description: Filter by paid_in_date >= from
+        - name: to
+          in: query
+          schema: {type: string, format: date}
+          description: Filter by paid_in_date <= to
+        - name: batch
+          in: query
+          schema: {type: string}
+          description: Filter by source_batch
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items: {$ref: '#/components/schemas/Contribution'}
+                  total: {type: integer}
+    post:
+      summary: Create contribution
+      tags: [Contributions]
+      description: |
+        Create a single contribution.
+        **XOR Rule**: Exactly one of deal_id or fund_id must be provided.
+        - Both set → 422 VALIDATION error
+        - Neither set → 422 VALIDATION error
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CreateContributionRequest'}
+            examples:
+              valid_deal:
+                summary: Valid contribution (Deal)
+                value:
+                  investor_id: 1
+                  deal_id: 10
+                  paid_in_date: "2025-07-15"
+                  amount: 250000
+                  currency: "USD"
+                  source_batch: "2025Q3"
+              valid_fund:
+                summary: Valid contribution (Fund)
+                value:
+                  investor_id: 1
+                  fund_id: 5
+                  paid_in_date: "2025-08-01"
+                  amount: 100000
+                  currency: "USD"
+              invalid_both:
+                summary: Invalid - both deal_id and fund_id set
+                value:
+                  investor_id: 1
+                  deal_id: 10
+                  fund_id: 5
+                  paid_in_date: "2025-07-15"
+                  amount: 1000
+              invalid_neither:
+                summary: Invalid - neither deal_id nor fund_id set
+                value:
+                  investor_id: 1
+                  paid_in_date: "2025-07-15"
+                  amount: 1000
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: {type: integer}
+        '422':
+          description: Validation error or CHECK constraint violation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: {type: string, enum: [VALIDATION, CHECK_VIOLATION]}
+                  details: {type: array, items: {type: string}}
+              examples:
+                xor_violation:
+                  summary: XOR constraint violated
+                  value:
+                    error: "VALIDATION"
+                    details: ["Exactly one of deal_id or fund_id is required."]
+                db_check_violation:
+                  summary: Database CHECK constraint triggered
+                  value:
+                    error: "CHECK_VIOLATION"
+                    detail: "contributions_one_scope_ck constraint violated"
+
+  /contributions/batch:
+    post:
+      summary: Create contributions in batch
+      tags: [Contributions]
+      description: |
+        Create multiple contributions in a single request.
+        **Pre-validation**: All rows are validated before insertion. If any row fails validation, the entire batch is rejected (no partial inserts).
+        **XOR Rule**: Each contribution must have exactly one of deal_id or fund_id set.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items: {$ref: '#/components/schemas/CreateContributionRequest'}
+            example:
+              - investor_id: 1
+                deal_id: 10
+                paid_in_date: "2025-07-15"
+                amount: 250000
+                currency: "USD"
+                source_batch: "2025Q3"
+              - investor_id: 2
+                fund_id: 5
+                paid_in_date: "2025-07-20"
+                amount: 150000
+                currency: "USD"
+                source_batch: "2025Q3"
+              - investor_id: 3
+                deal_id: 12
+                paid_in_date: "2025-08-01"
+                amount: 300000
+                currency: "EUR"
+                fx_rate: 1.1
+                source_batch: "2025Q3"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inserted:
+                    type: array
+                    items: {type: integer}
+                    description: Array of created contribution IDs
+        '422':
+          description: Validation error (entire batch rejected)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: {type: string, enum: [VALIDATION]}
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index: {type: integer}
+                        errors: {type: array, items: {type: string}}
+              example:
+                error: "VALIDATION"
+                details:
+                  - index: 0
+                    errors: ["Exactly one of deal_id or fund_id is required."]
+                  - index: 2
+                    errors: ["amount must be a positive number."]
+
+  /charges/compute:
+    post:
+      summary: Compute charge from contribution
+      tags: [Charges]
+      description: |
+        Compute charge for a contribution (idempotent upsert).
+        Resolves approved agreement, computes fees, and creates/updates a DRAFT charge.
+        **RBAC**: Finance+ roles (admin, finance, ops) OR service key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ComputeChargeRequest'}
+            example:
+              contribution_id: 3
+      responses:
+        '200':
+          description: Charge computed successfully
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Charge'}
+        '403':
+          description: Forbidden (insufficient role or feature flag disabled)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+              example:
+                code: FORBIDDEN
+                message: Requires Finance, Ops, or Admin role to compute charges
+                timestamp: "2025-10-21T10:00:00Z"
+        '422':
+          description: Validation error (invalid contribution_id or no approved agreement)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+              example:
+                code: VALIDATION_ERROR
+                message: Validation failed
+                details:
+                  - field: contribution_id
+                    message: No approved agreement found for this contribution
+                    value: 999
+                timestamp: "2025-10-21T10:00:00Z"
+
+  /charges/batch-compute:
+    post:
+      summary: Batch compute charges for multiple contributions
+      tags: [Charges]
+      description: |
+        Compute charges for up to 1000 contributions in a single request.
+        **RBAC**: Finance+ roles (admin, finance, ops) OR service key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/BatchComputeRequest'}
+            example:
+              contribution_ids: [1, 2, 3, 4, 5]
+      responses:
+        '200':
+          description: Batch compute completed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/BatchComputeResponse'}
+              example:
+                results:
+                  - contribution_id: 1
+                    charge_id: "a1b2c3d4-..."
+                    status: success
+                  - contribution_id: 2
+                    charge_id: null
+                    status: error
+                    errors: ["No approved agreement found"]
+                total: 2
+                successful: 1
+                failed: 1
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+        '422':
+          description: Validation error (invalid contribution_ids)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+
+  /charges:
+    get:
+      summary: List charges with filters
+      tags: [Charges]
+      description: |
+        List charges with filters and pagination.
+        **RBAC**: Finance+ roles (admin, finance, ops, manager)
+      parameters:
+        - name: status
+          in: query
+          schema: {type: string, enum: [DRAFT, PENDING, APPROVED, PAID, REJECTED]}
+        - name: investor_id
+          in: query
+          schema: {type: integer}
+        - name: deal_id
+          in: query
+          schema: {type: integer}
+        - name: fund_id
+          in: query
+          schema: {type: integer}
+        - name: limit
+          in: query
+          schema: {type: integer, default: 50, maximum: 100}
+        - name: offset
+          in: query
+          schema: {type: integer, default: 0}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items: {$ref: '#/components/schemas/Charge'}
+                  meta:
+                    type: object
+                    properties:
+                      total: {type: integer}
+                      limit: {type: integer}
+                      offset: {type: integer}
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+
+  /charges/{id}:
+    get:
+      summary: Get single charge detail
+      tags: [Charges]
+      description: |
+        Get charge detail with joined data and credit applications.
+        **RBAC**: Finance+ roles (admin, finance, ops, manager)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Charge'}
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+        '404':
+          description: Charge not found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+              example:
+                code: NOT_FOUND
+                message: Charge not found
+                timestamp: "2025-10-21T10:00:00Z"
+
+  /charges/{id}/submit:
+    post:
+      summary: Submit charge for approval (DRAFT → PENDING)
+      tags: [Charges]
+      description: |
+        Submit charge for approval and auto-apply FIFO credits.
+        **RBAC**: Finance+ roles (admin, finance, ops, manager) OR service key
+        **Status Flow**: DRAFT → PENDING
+        **Credits**: Auto-applied using FIFO logic (oldest first)
+        **Idempotent**: Re-submitting PENDING charge returns current state
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dry_run: {type: boolean, default: false, description: 'Preview credit application without persisting'}
+      responses:
+        '200':
+          description: Charge submitted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {$ref: '#/components/schemas/Charge'}
+              example:
+                data:
+                  id: "a1b2c3d4-..."
+                  status: PENDING
+                  total_amount: 600.00
+                  credits_applied_amount: 500.00
+                  net_amount: 100.00
+                  credit_applications:
+                    - credit_id: "x1y2z3..."
+                      amount: 500.00
+                      applied_at: "2025-10-21T10:00:00Z"
+        '403':
+          description: Forbidden (feature flag off or insufficient role)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+        '404':
+          description: Charge not found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+        '409':
+          description: Conflict (invalid status transition)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+              example:
+                code: CONFLICT
+                message: Invalid status transition charge is APPROVED, expected DRAFT
+                details:
+                  - field: status
+                    message: Can only submit DRAFT charges
+                    value: APPROVED
+                timestamp: "2025-10-21T10:00:00Z"
+        '422':
+          description: Validation error (scope/currency mismatch)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+
+  /charges/{id}/approve:
+    post:
+      summary: Approve charge (PENDING → APPROVED)
+      tags: [Charges]
+      description: |
+        Approve charge after review.
+        **RBAC**: Admin only OR service key
+        **Status Flow**: PENDING → APPROVED
+        **Idempotent**: Re-approving APPROVED charge returns current state
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment: {type: string, description: 'Optional approval comment'}
+      responses:
+        '200':
+          description: Charge approved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {$ref: '#/components/schemas/Charge'}
+        '403':
+          description: Forbidden (not admin or feature flag disabled)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+              example:
+                code: FORBIDDEN
+                message: Requires Admin role to approve charges
+                timestamp: "2025-10-21T10:00:00Z"
+        '404':
+          description: Charge not found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+        '409':
+          description: Conflict (invalid status transition)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+              example:
+                code: CONFLICT
+                message: Cannot approve charge with status DRAFT
+                details:
+                  - field: status
+                    message: Can only approve PENDING charges
+                    value: DRAFT
+                timestamp: "2025-10-21T10:00:00Z"
+
+  /charges/{id}/reject:
+    post:
+      summary: Reject charge (PENDING → REJECTED)
+      tags: [Charges]
+      description: |
+        Reject charge and reverse all credit applications.
+        **RBAC**: Admin only OR service key
+        **Status Flow**: PENDING → REJECTED
+        **Credits**: All credit applications reversed, balances restored
+        **Idempotent**: Re-rejecting REJECTED charge returns current state
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/RejectChargeRequest'}
+            example:
+              reject_reason: "Invoice amount does not match agreement terms"
+      responses:
+        '200':
+          description: Charge rejected successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {$ref: '#/components/schemas/Charge'}
+        '403':
+          description: Forbidden (not admin or feature flag disabled)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+        '404':
+          description: Charge not found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+        '409':
+          description: Conflict (invalid status transition)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+        '422':
+          description: Validation error (missing or invalid reject_reason)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+              example:
+                code: VALIDATION_ERROR
+                message: Reject reason required (min 10 characters)
+                details:
+                  - field: reject_reason
+                    message: Reject reason required (min 10 characters)
+                    value: ""
+                timestamp: "2025-10-21T10:00:00Z"
+
+  /charges/{id}/mark-paid:
+    post:
+      summary: Mark charge as paid (APPROVED → PAID)
+      tags: [Charges]
+      description: |
+        Mark charge as paid with payment reference.
+        **RBAC**: Admin only (NO service key - requires human verification)
+        **Status Flow**: APPROVED → PAID
+        **Idempotent**: Re-marking PAID charge returns current state
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/MarkPaidRequest'}
+            example:
+              payment_ref: "WIRE-2025-001"
+              paid_at: "2025-10-21T14:30:00Z"
+      responses:
+        '200':
+          description: Charge marked as paid successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {$ref: '#/components/schemas/Charge'}
+        '403':
+          description: Forbidden (not admin, service key blocked, or feature flag disabled)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+              examples:
+                service_key_blocked:
+                  value:
+                    code: FORBIDDEN
+                    message: Service key not allowed for mark-paid (requires human verification)
+                    timestamp: "2025-10-21T10:00:00Z"
+                not_admin:
+                  value:
+                    code: FORBIDDEN
+                    message: Requires Admin role to mark charges as paid
+                    timestamp: "2025-10-21T10:00:00Z"
+        '404':
+          description: Charge not found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+        '409':
+          description: Conflict (invalid status transition)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+              example:
+                code: CONFLICT
+                message: Cannot mark charge paid with status PENDING
+                details:
+                  - field: status
+                    message: Can only mark APPROVED charges as paid
+                    value: PENDING
+                timestamp: "2025-10-21T10:00:00Z"

@@ -1,0 +1,608 @@
+# ============================================
+# CHARGES API - T01 (Submit) + T02 (Approve, Reject, Mark-Paid)
+# Version: v1.9.0
+# Date: 2025-10-21
+# ============================================
+# This file contains OpenAPI 3.1 spec for charges workflow endpoints.
+# Append this to the main openapi.yaml file under "paths:"
+
+  /charges/{id}/submit:
+    post:
+      summary: Submit a charge and apply FIFO credits
+      description: |
+        Transition a charge from `draft` → `pending`, auto-apply FIFO credits (scope-aware),
+        persist credit applications, and return the updated charge including `net_amount`
+        (total − credits applied). **Idempotent.**
+
+        ## Business Rules
+        1. **Allowed status:** Only `draft` can be submitted. Transition → `pending`.
+        2. **Scope matching:**
+           - Fund-scoped charge consumes fund-scoped credits (same `fund_id`)
+           - Deal-scoped charge consumes deal-scoped credits (same `deal_id`)
+           - Global credits (no fund_id/deal_id) are NOT allowed (reject with 422)
+        3. **Currency:** Credits must match the charge currency, else ignored.
+        4. **FIFO selection:** Credits ordered by `created_at` ASC, then by `id` ASC, with `available_amount > 0`.
+        5. **Idempotency:** Repeat calls return current state if already `pending`.
+        6. **Audit:** Logs `charge_submitted` action with metadata.
+
+        ## Transaction Safety
+        - All operations run in a database transaction
+        - On error, entire transaction rolls back (status remains DRAFT)
+        - Credits are locked during application (row-level locking)
+
+      tags: [Charges]
+      operationId: submitCharge
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Charge UUID
+          schema:
+            type: string
+            format: uuid
+            example: "a0fb4b54-5e29-437b-beaf-99e4f2bcc4bd"
+
+      security:
+        - BearerAuth: []          # User JWT (RBAC: Finance+)
+        - ServiceKeyAuth: []       # x-service-key (internal jobs)
+
+      requestBody:
+        required: false
+        description: Optional request body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dry_run:
+                  type: boolean
+                  default: false
+                  description: If true, preview credit application without persisting changes
+              example:
+                dry_run: false
+
+      responses:
+        "200":
+          description: |
+            Submitted successfully (or already pending). Returns updated charge with credits summary.
+
+            **Idempotent:** If charge is already `pending`, returns current state with existing applications.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/ChargeWithCredits"
+              examples:
+                full_coverage:
+                  summary: Full credit coverage (net = 0)
+                  value:
+                    data:
+                      id: "a0fb4b54-5e29-437b-beaf-99e4f2bcc4bd"
+                      investor_id: 123
+                      fund_id: 5
+                      status: "PENDING"
+                      base_amount: 500.00
+                      discount_amount: 0.00
+                      vat_amount: 100.00
+                      total_amount: 600.00
+                      currency: "USD"
+                      credits_applied_amount: 600.00
+                      net_amount: 0.00
+                      submitted_at: "2025-10-21T14:30:00Z"
+                      credit_applications:
+                        - credit_id: "c1a2b3c4-d5e6-7f8g-9h0i-1j2k3l4m5n6o"
+                          amount: 500.00
+                          applied_at: "2025-10-21T14:30:00Z"
+                        - credit_id: "c7a8b9c0-d1e2-3f4g-5h6i-7j8k9l0m1n2o"
+                          amount: 100.00
+                          applied_at: "2025-10-21T14:30:00Z"
+
+                partial_coverage:
+                  summary: Partial credit coverage (net > 0)
+                  value:
+                    data:
+                      id: "b1fc5c65-6f3a-548c-cfbg-a0f5g3cdd5ce"
+                      investor_id: 456
+                      deal_id: 10
+                      status: "PENDING"
+                      total_amount: 1000.00
+                      credits_applied_amount: 700.00
+                      net_amount: 300.00
+                      credit_applications:
+                        - credit_id: "c2b3c4d5-e6f7-8g9h-0i1j-2k3l4m5n6o7p"
+                          amount: 500.00
+                          applied_at: "2025-10-21T14:31:00Z"
+                        - credit_id: "c8b9c0d1-e2f3-4g5h-6i7j-8k9l0m1n2o3p"
+                          amount: 200.00
+                          applied_at: "2025-10-21T14:31:00Z"
+
+                no_credits:
+                  summary: No available credits
+                  value:
+                    data:
+                      id: "c2gd6d76-7g4b-659d-dgch-b1g6h4dee6df"
+                      investor_id: 789
+                      fund_id: 3
+                      status: "PENDING"
+                      total_amount: 500.00
+                      credits_applied_amount: 0.00
+                      net_amount: 500.00
+                      credit_applications: []
+
+                dry_run:
+                  summary: Dry run preview (status remains DRAFT)
+                  value:
+                    data:
+                      id: "d3he7e87-8h5c-76ae-ehdi-c2h7i5eff7eg"
+                      status: "DRAFT"
+                      total_amount: 600.00
+                      credits_applied_amount: 600.00
+                      net_amount: 0.00
+                      credit_applications:
+                        - credit_id: "c3c4d5e6-f7g8-9h0i-1j2k-3l4m5n6o7p8q"
+                          amount: 600.00
+                          applied_at: "2025-10-21T14:32:00Z"
+                      dry_run: true
+
+        "400":
+          description: Bad request (e.g., invalid UUID format)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+              example:
+                code: "VALIDATION_ERROR"
+                message: "Invalid charge ID format"
+                timestamp: "2025-10-21T14:30:00Z"
+
+        "403":
+          description: Forbidden (feature flag off OR insufficient role)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+              examples:
+                feature_disabled:
+                  summary: Feature flag disabled
+                  value:
+                    code: "FORBIDDEN"
+                    message: "Charges engine feature is currently disabled"
+                    timestamp: "2025-10-21T14:30:00Z"
+
+                insufficient_role:
+                  summary: Viewer role cannot submit
+                  value:
+                    code: "FORBIDDEN"
+                    message: "Requires Finance, Ops, Manager, or Admin role to submit charges"
+                    timestamp: "2025-10-21T14:30:00Z"
+
+        "404":
+          description: Charge not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+              example:
+                code: "NOT_FOUND"
+                message: "Charge not found"
+                timestamp: "2025-10-21T14:30:00Z"
+
+        "409":
+          description: Invalid status transition (charge not in 'draft')
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+              examples:
+                already_approved:
+                  summary: Charge already approved
+                  value:
+                    code: "CONFLICT"
+                    message: "Invalid status transition: charge is APPROVED, expected DRAFT"
+                    details:
+                      - field: "status"
+                        message: "Can only submit DRAFT charges"
+                        value: "APPROVED"
+                    timestamp: "2025-10-21T14:30:00Z"
+
+        "422":
+          description: Business rule failure (scope/currency mismatch)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+              examples:
+                global_charge:
+                  summary: Global charge (no fund/deal)
+                  value:
+                    code: "VALIDATION_ERROR"
+                    message: "Charge must have either fund_id or deal_id to apply credits"
+                    details:
+                      - field: "fund_id/deal_id"
+                        message: "Charge must have either fund_id or deal_id to apply credits"
+                        value: null
+                    timestamp: "2025-10-21T14:30:00Z"
+
+                scope_mismatch:
+                  summary: Deal charge with only fund credits
+                  value:
+                    code: "VALIDATION_ERROR"
+                    message: "No matching credits found for this charge scope"
+                    timestamp: "2025-10-21T14:30:00Z"
+
+        "500":
+          description: Server error (transaction rollback)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+              example:
+                code: "INTERNAL_ERROR"
+                message: "Charge submission failed: Database transaction error"
+                timestamp: "2025-10-21T14:30:00Z"
+
+# ============================================
+# SCHEMAS
+# ============================================
+components:
+  securitySchemes:
+    ServiceKeyAuth:
+      type: apiKey
+      in: header
+      name: x-service-key
+      description: Service API key for internal jobs and batch operations
+
+  schemas:
+    ChargeWithCredits:
+      type: object
+      description: Charge with credit applications
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Charge UUID
+        numeric_id:
+          type: integer
+          description: Charge numeric ID (internal)
+        investor_id:
+          type: integer
+          description: Investor ID
+        fund_id:
+          type: integer
+          nullable: true
+          description: Fund ID (if fund-scoped)
+        deal_id:
+          type: integer
+          nullable: true
+          description: Deal ID (if deal-scoped)
+        contribution_id:
+          type: string
+          format: uuid
+          description: Associated contribution UUID
+        status:
+          type: string
+          enum: [DRAFT, PENDING, APPROVED, REJECTED, PAID]
+          description: Charge status
+        base_amount:
+          type: number
+          format: double
+          description: Base fee amount
+        discount_amount:
+          type: number
+          format: double
+          description: Discount amount
+        vat_amount:
+          type: number
+          format: double
+          description: VAT amount
+        total_amount:
+          type: number
+          format: double
+          description: Total charge amount (base + vat - discount)
+        currency:
+          type: string
+          description: Currency code (ISO 4217)
+          example: "USD"
+        credits_applied_amount:
+          type: number
+          format: double
+          description: Total credits applied to this charge
+        net_amount:
+          type: number
+          format: double
+          description: Net amount due (total - credits applied)
+        submitted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when charge was submitted
+        approved_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when charge was approved
+        approved_by:
+          type: string
+          nullable: true
+          description: User ID who approved
+        rejected_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when charge was rejected
+        rejected_by:
+          type: string
+          nullable: true
+          description: User ID who rejected
+        reject_reason:
+          type: string
+          nullable: true
+          description: Reason for rejection
+        paid_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when charge was paid
+        snapshot_json:
+          type: object
+          description: Computation snapshot (rates, agreements, etc.)
+        computed_at:
+          type: string
+          format: date-time
+          description: Timestamp when charge was computed
+        created_at:
+          type: string
+          format: date-time
+          description: Record creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Record last update timestamp
+        credit_applications:
+          type: array
+          description: Credit applications for this charge
+          items:
+            $ref: "#/components/schemas/CreditApplication"
+
+        # Joined data (optional)
+        investor:
+          type: object
+          nullable: true
+          properties:
+            id: {type: integer}
+            name: {type: string}
+        deal:
+          type: object
+          nullable: true
+          properties:
+            id: {type: integer}
+            name: {type: string}
+        fund:
+          type: object
+          nullable: true
+          properties:
+            id: {type: integer}
+            name: {type: string}
+        contribution:
+          type: object
+          nullable: true
+          properties:
+            id: {type: string, format: uuid}
+            amount: {type: number}
+            paid_in_date: {type: string, format: date}
+
+    CreditApplication:
+      type: object
+      description: Credit application record
+      properties:
+        credit_id:
+          type: string
+          format: uuid
+          description: Credit UUID
+        amount:
+          type: number
+          format: double
+          description: Amount of credit applied
+        applied_at:
+          type: string
+          format: date-time
+          description: Timestamp when credit was applied
+
+    ApiError:
+      type: object
+      description: Standardized error response
+      properties:
+        code:
+          type: string
+          enum: [VALIDATION_ERROR, FORBIDDEN, CONFLICT, NOT_FOUND, UNAUTHORIZED, INTERNAL_ERROR]
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          nullable: true
+          description: Field-level or row-level error details
+          items:
+            $ref: "#/components/schemas/ApiErrorDetail"
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          nullable: true
+          description: Request tracking ID
+
+    ApiErrorDetail:
+      type: object
+      description: Field-level error detail
+      properties:
+        field:
+          type: string
+          nullable: true
+          description: Field name (e.g., 'investor_id', 'amount')
+        row:
+          type: integer
+          nullable: true
+          description: Row number for CSV/batch operations
+        value:
+          description: Invalid value provided
+        constraint:
+          type: string
+          nullable: true
+          description: Constraint name (e.g., 'unique_email', 'amount_positive')
+        message:
+          type: string
+          nullable: true
+          description: Human-readable error message
+
+# ============================================
+# T02: APPROVE, REJECT, MARK-PAID ENDPOINTS
+# ============================================
+
+  /charges/{id}/approve:
+    post:
+      summary: Approve a pending charge
+      description: |
+        Transition a charge from pending → approved. Freezes credit applications without modifying balances.
+        Idempotent: Re-approving an approved charge returns current state.
+
+      tags: [Charges]
+      operationId: approveCharge
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Charge UUID
+          schema:
+            type: string
+            format: uuid
+
+      security:
+        - BearerAuth: []
+        - ServiceKeyAuth: []
+
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment:
+                  type: string
+                  description: Optional approval comment
+
+      responses:
+        "200":
+          description: Approved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/ChargeWithCredits"
+        "403":
+          description: Forbidden
+        "404":
+          description: Charge not found
+        "409":
+          description: Invalid status transition
+
+  /charges/{id}/reject:
+    post:
+      summary: Reject a pending charge and reverse credits
+      description: |
+        Transition from pending → rejected. Reverses all credit applications and restores balances.
+        Idempotent.
+
+      tags: [Charges]
+      operationId: rejectCharge
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      security:
+        - BearerAuth: []
+        - ServiceKeyAuth: []
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reason]
+              properties:
+                reason:
+                  type: string
+                  minLength: 3
+
+      responses:
+        "200":
+          description: Rejected; credits restored
+        "400":
+          description: Invalid reason
+        "403":
+          description: Forbidden
+        "404":
+          description: Charge not found
+        "409":
+          description: Invalid status transition
+        "500":
+          description: Credit reversal failed
+
+  /charges/{id}/mark-paid:
+    post:
+      summary: Mark an approved charge as paid
+      description: |
+        Transition from approved → paid. Records payment timestamp and reference.
+        Service key NOT allowed (requires human verification).
+
+      tags: [Charges]
+      operationId: markChargePaid
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      security:
+        - BearerAuth: []
+
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payment_ref:
+                  type: string
+                paid_at:
+                  type: string
+                  format: date-time
+
+      responses:
+        "200":
+          description: Marked paid successfully
+        "403":
+          description: Forbidden (service key blocked)
+        "404":
+          description: Charge not found
+        "409":
+          description: Invalid status transition
