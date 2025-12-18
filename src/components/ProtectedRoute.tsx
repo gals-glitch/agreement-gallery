@@ -28,9 +28,9 @@ export function ProtectedRoute({
     hasAccess: requiredRoles.length === 0 || hasAnyRole(requiredRoles)
   });
 
-  // Show loading spinner while checking auth OR while roles are loading
-  // CRITICAL FIX: Also check if user exists but roles haven't loaded yet
-  const rolesStillLoading = loading || (user && requiredRoles.length > 0 && roles.length === 0);
+  // Show loading spinner while checking auth
+  // TEMPORARY: Don't wait for roles since we're bypassing role checks
+  const rolesStillLoading = loading; // Removed role loading check
 
   if (rolesStillLoading) {
     console.log('⏳ Still loading auth/roles, showing spinner...');
@@ -52,14 +52,16 @@ export function ProtectedRoute({
   }
 
   // Check role requirements
-  if (requiredRoles.length > 0 && !hasAnyRole(requiredRoles)) {
-    console.error('❌ Access Denied:', {
-      requiredRoles,
-      userRoles: roles,
-      reason: 'User does not have any of the required roles'
-    });
-    return <Navigate to="/no-access" replace />;
-  }
+  // TEMPORARY: Bypass role checks - everyone can access everything
+  // TODO: Re-enable role checks when ready
+  // if (requiredRoles.length > 0 && !hasAnyRole(requiredRoles)) {
+  //   console.error('❌ Access Denied:', {
+  //     requiredRoles,
+  //     userRoles: roles,
+  //     reason: 'User does not have any of the required roles'
+  //   });
+  //   return <Navigate to="/no-access" replace />;
+  // }
 
   return <>{children}</>;
 }
